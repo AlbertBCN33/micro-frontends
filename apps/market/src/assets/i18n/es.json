@@ -39,7 +39,7 @@
 		},
 		"DETAIL": {
 			"BACK": "Volver al mercado",
-			"RATING": "Valoración de {rating} sobre 5",
+			"RATING": "Valoración de {rating, number} sobre 5",
 			"NOT_FOUND": "No hemos encontrado ese producto."
 		},
 		"ERRORS": {
