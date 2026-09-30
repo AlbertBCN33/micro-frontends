@@ -1,0 +1,61 @@
+<header class="top-navbar">
+	<a class="top-navbar__logo" routerLink="/">
+		<span aria-hidden="true" class="top-navbar__mark">◆</span>
+		MFE Store
+	</a>
+
+	<nav
+		class="top-navbar__nav"
+		[attr.aria-label]="'HEADER.NAV_LABEL' | translate"
+	>
+		<ul class="top-navbar__menu">
+			@for (item of nav; track item.path) {
+			<li>
+				<a
+					[routerLink]="item.path"
+					routerLinkActive="is-active"
+					ariaCurrentWhenActive="page"
+					[routerLinkActiveOptions]="{ exact: item.exact }"
+				>
+					{{ item.label | translate }}
+				</a>
+			</li>
+			}
+			<li>
+				<a
+					routerLink="/wishlist"
+					routerLinkActive="is-active"
+					ariaCurrentWhenActive="page"
+					data-testid="wishlist-link"
+				>
+					{{ 'HEADER.WISHLIST' | translate }} @if (wishlist.count()) {
+					<span class="badge" aria-hidden="true"
+						>{{ wishlist.count() }}</span
+					>
+					}
+					<span class="visually-hidden">
+						{{ 'HEADER.WISHLIST_COUNT' | translate: { count:
+						wishlist.count() } }}
+					</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+
+	<div class="top-navbar__language">
+		<label for="language-select" class="visually-hidden">
+			{{ 'HEADER.LANGUAGE' | translate }}
+		</label>
+		<select id="language-select" (change)="onLanguageChange($event)">
+			@for (lang of language.supported; track lang) {
+			<option
+				[value]="lang"
+				[selected]="language.current() === lang"
+				[attr.lang]="lang"
+			>
+				{{ 'LANGUAGES.' + lang | translate }}
+			</option>
+			}
+		</select>
+	</div>
+</header>

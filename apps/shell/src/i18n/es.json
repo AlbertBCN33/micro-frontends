@@ -1,0 +1,93 @@
+{
+	"LAYOUT": {
+		"SKIP_TO_CONTENT": "Saltar al contenido principal",
+		"FOOTER": "MFE Store: una app de referencia de micro-frontends. Nx 23 · Angular 22 · Native Federation."
+	},
+	"LANGUAGES": {
+		"en": "English",
+		"es": "Español"
+	},
+	"HEADER": {
+		"NAV_LABEL": "Principal",
+		"DASHBOARD": "Dashboard",
+		"MARKET": "Mercado",
+		"WISHLIST": "Deseados",
+		"DOCUMENTATION": "Documentación",
+		"LANGUAGE": "Idioma",
+		"WISHLIST_COUNT": "{count, plural, =0 {, vacía} one {, # producto} other {, # productos}}"
+	},
+	"HOME": {
+		"TITLE": "Dashboard",
+		"SUBTITLE": "Una página, tres apps desplegadas de forma independiente.",
+		"WISHLIST": {
+			"TITLE": "Tu lista de deseados",
+			"COUNT": "{count, plural, =0 {Ningún producto guardado} one {# producto guardado} other {# productos guardados}}",
+			"HINT": "El shell lo lee del contrato compartido de deseados; el mercado lo actualiza.",
+			"CTA": "Abrir deseados"
+		},
+		"MARKET": {
+			"TITLE": "Mercado",
+			"BODY": "Busca y filtra el catálogo, y guarda lo que te guste.",
+			"CTA": "Explorar el mercado"
+		},
+		"REMOTES": {
+			"TITLE": "Remotos cargados",
+			"BODY": "Cada remoto se descarga solo la primera vez que lo visitas.",
+			"LOADED": "cargado",
+			"NOT_LOADED": "aún no cargado",
+			"CTA": "Cómo funciona"
+		}
+	},
+	"NOT_FOUND": {
+		"TITLE": "Página no encontrada",
+		"BODY": "La página que buscas no existe.",
+		"CTA": "Ir al dashboard"
+	},
+	"REMOTE_UNAVAILABLE": {
+		"TITLE": "Esta sección no está disponible",
+		"BODY": "No se ha podido cargar la app \"{remote}\". El resto del sitio sigue funcionando.",
+		"RETRY": "Reintentar"
+	},
+	"DOCS": {
+		"SUBTITLE": "Cómo está construida esta app y por qué.",
+		"NAV_LABEL": "Secciones de la documentación",
+		"SYSTEM_DESIGN": {
+			"TITLE": "Diseño del sistema",
+			"INTRO": "La tienda está dividida por dominio de negocio. Cada dominio es una app Angular que su propio equipo podría construir, probar y desplegar de forma independiente. El shell las compone en tiempo de ejecución.",
+			"COMPOSITION": {
+				"HEADING": "Composición en tiempo de ejecución",
+				"BODY": "Native Federation (módulos ES e import maps sobre el builder esbuild de Angular CLI) carga las rutas de cada remoto en el router del shell. Angular, RxJS y las librerías compartidas se cargan una sola vez y se comparten como singletons."
+			},
+			"LAZY_LOADING": {
+				"HEADING": "Los remotos se cargan bajo demanda",
+				"BODY": "El shell arranca sin ningún remoto registrado. Al abrir /market o /wishlist se descargan por primera vez los metadatos y el código de ese remoto. Las URLs de los remotos vienen de federation.manifest.json, así que cada entorno se configura sin recompilar."
+			},
+			"SHARED_STATE": {
+				"HEADING": "Estado compartido mediante un contrato",
+				"BODY": "El mercado y la lista de deseados nunca se importan entre sí. Comparten una pequeña librería versionada: un WishlistStore basado en signals y un tipo WishlistItem, con la persistencia detrás de un puerto de almacenamiento."
+			},
+			"I18N": {
+				"HEADING": "Cada app gestiona sus traducciones",
+				"BODY": "El shell controla el idioma activo. Cada remoto añade un ámbito de traducción hijo que carga sus propios en.json y es.json desde su propio origen, como chunks diferidos con hash de contenido."
+			},
+			"RESILIENCE": {
+				"HEADING": "Los fallos quedan aislados",
+				"BODY": "Si un remoto está caído, solo su sección muestra una página de error. La navegación, el dashboard y los demás remotos siguen funcionando."
+			},
+			"VERSIONING": {
+				"HEADING": "Librerías compartidas versionadas",
+				"BODY": "Las librerías compartidas se versionan con Nx Release y conventional commits. Native Federation comprueba esas versiones en tiempo de ejecución, así que un remoto compilado con un contrato incompatible se detecta en lugar de fallar en silencio."
+			}
+		},
+		"DIAGRAM": {
+			"TITLE": "Diagrama de arquitectura",
+			"DESC": "El shell, en el puerto 4200, carga de forma diferida el remoto del mercado (puerto 4201) y el de deseados (puerto 4202) cuando se visitan sus rutas. Las tres apps usan las mismas librerías compartidas.",
+			"ON_NAVIGATION": "en la primera visita",
+			"SHARED": "Librerías compartidas (singletons en ejecución)",
+			"CAPTION": "Las flechas azules discontinuas se cargan bajo demanda; las continuas son dependencias de compilación.",
+			"LEGEND_LAZY": "Los remotos se descargan la primera vez que se visita su ruta, nunca al arrancar.",
+			"LEGEND_SHARED": "Las librerías compartidas se cargan una vez y las usan el shell y todos los remotos.",
+			"LEGEND_MANIFEST": "federation.manifest.json asigna a cada remoto su URL en cada entorno."
+		}
+	}
+}

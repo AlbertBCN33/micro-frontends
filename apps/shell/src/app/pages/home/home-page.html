@@ -1,0 +1,46 @@
+<ui-page-title
+	[heading]="'HOME.TITLE' | translate"
+	[subtitle]="'HOME.SUBTITLE' | translate"
+/>
+
+<div class="tiles">
+	<section class="tile" aria-labelledby="home-wishlist">
+		<h2 id="home-wishlist">{{ 'HOME.WISHLIST.TITLE' | translate }}</h2>
+		<p class="stat" data-testid="home-wishlist-count">
+			{{ 'HOME.WISHLIST.COUNT' | translate: { count: wishlist.count() } }}
+		</p>
+		@for (total of wishlist.totals(); track total.currency) {
+		<p>{{ total.amount | localizedCurrency: total.currency }}</p>
+		}
+		<p class="hint">{{ 'HOME.WISHLIST.HINT' | translate }}</p>
+		<a class="mfe-button" routerLink="/wishlist"
+			>{{ 'HOME.WISHLIST.CTA' | translate }}</a
+		>
+	</section>
+
+	<section class="tile" aria-labelledby="home-market">
+		<h2 id="home-market">{{ 'HOME.MARKET.TITLE' | translate }}</h2>
+		<p>{{ 'HOME.MARKET.BODY' | translate }}</p>
+		<a class="mfe-button" routerLink="/market"
+			>{{ 'HOME.MARKET.CTA' | translate }}</a
+		>
+	</section>
+
+	<section class="tile" aria-labelledby="home-remotes">
+		<h2 id="home-remotes">{{ 'HOME.REMOTES.TITLE' | translate }}</h2>
+		<p>{{ 'HOME.REMOTES.BODY' | translate }}</p>
+		<ul class="remotes">
+			@for (remote of remotes.remotes; track remote) { @let loaded =
+			remotes.loaded().has(remote);
+			<li [attr.data-testid]="'remote-status-' + remote">
+				<code>{{ remote }}</code>
+				<span [class.is-loaded]="loaded">
+					{{ (loaded ? 'HOME.REMOTES.LOADED' :
+					'HOME.REMOTES.NOT_LOADED') | translate }}
+				</span>
+			</li>
+			}
+		</ul>
+		<a routerLink="/documentation">{{ 'HOME.REMOTES.CTA' | translate }}</a>
+	</section>
+</div>

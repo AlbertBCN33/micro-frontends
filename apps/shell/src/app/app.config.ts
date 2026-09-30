@@ -1,28 +1,31 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import {
+	ApplicationConfig,
+	provideBrowserGlobalErrorListeners,
+} from '@angular/core';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import {
+	provideRootTranslations,
+	resolveInitialLanguage,
+} from '@mfe/shared-util-i18n';
 import { appRoutes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
-import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
-	http: HttpClient
-) => new TranslateHttpLoader(http, './i18n/', '.json');
-
+/**
+ * Everything here is part of the host contract that remotes rely on: the root
+ * TranslateService, HttpClient and the router. Changing it is a cross-team
+ * change, see docs/adr.
+ */
 export const appConfig: ApplicationConfig = {
 	providers: [
-		provideClientHydration(),
-		provideZoneChangeDetection({ eventCoalescing: true }),
-		provideRouter(appRoutes),
-		provideHttpClient(),
-		provideTranslateService({
-			defaultLanguage: 'en',
-			loader: {
-				provide: TranslateLoader,
-				useFactory: httpLoaderFactory,
-				deps: [HttpClient],
-			},
-		}),
+		provideBrowserGlobalErrorListeners(),
+		provideHttpClient(withFetch()),
+		provideRootTranslations(
+			(lang) => import(`../i18n/${lang}.json`),
+			resolveInitialLanguage(),
+		),
+		provideRouter(
+			appRoutes,
+			withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
+		),
 	],
 };

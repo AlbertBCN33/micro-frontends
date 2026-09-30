@@ -1,0 +1,18 @@
+.tabs
+	display: flex
+	flex-wrap: wrap
+	gap: var(--mfe-space-2)
+	margin-bottom: var(--mfe-space-4)
+	border-bottom: 1px solid var(--mfe-color-border)
+	a
+		display: inline-flex
+		align-items: center
+		min-height: 2.75rem
+		padding: 0 var(--mfe-space-3)
+		color: var(--mfe-color-text-muted)
+		font-weight: 600
+		text-decoration: none
+		border-bottom: 3px solid transparent
+		&.is-active
+			color: var(--mfe-color-text)
+			border-bottom-color: var(--mfe-color-primary)

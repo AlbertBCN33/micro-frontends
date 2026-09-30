@@ -1,0 +1,42 @@
+.tiles
+	display: grid
+	grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr))
+	gap: var(--mfe-space-4)
+
+.tile
+	display: flex
+	flex-direction: column
+	align-items: flex-start
+	gap: var(--mfe-space-2)
+	padding: var(--mfe-space-4)
+	border-radius: var(--mfe-radius)
+	background: var(--mfe-color-surface)
+	box-shadow: var(--mfe-shadow)
+	h2, p
+		margin: 0
+	.mfe-button, > a
+		margin-top: auto
+
+.stat
+	font-size: 1.5rem
+	font-weight: 700
+
+.hint
+	color: var(--mfe-color-text-muted)
+	font-size: 0.875rem
+
+.remotes
+	display: grid
+	gap: var(--mfe-space-1)
+	width: 100%
+	margin: 0 0 var(--mfe-space-2)
+	padding: 0
+	list-style: none
+	li
+		display: flex
+		justify-content: space-between
+	span
+		color: var(--mfe-color-text-muted)
+	.is-loaded
+		color: inherit
+		font-weight: 700

@@ -1,8 +1,5 @@
-// @ts-expect-error https://thymikee.github.io/jest-preset-angular/docs/getting-started/test-environment
-globalThis.ngJest = {
-	testEnvironmentOptions: {
-		errorOnUnknownElements: true,
-		errorOnUnknownProperties: true,
-	},
-};
-import 'jest-preset-angular/setup-jest';
+import '@angular/compiler';
+import '@analogjs/vitest-angular/setup-snapshots';
+import { setupTestBed } from '@analogjs/vitest-angular/setup-testbed';
+
+setupTestBed();

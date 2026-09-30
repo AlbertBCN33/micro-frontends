@@ -1,0 +1,13 @@
+<a class="skip-link" href="#main-content" (click)="skipToMain($event)">
+	{{ 'LAYOUT.SKIP_TO_CONTENT' | translate }}
+</a>
+
+<shell-header />
+
+<main #main id="main-content" class="content" tabindex="-1">
+	<router-outlet />
+</main>
+
+<footer class="footer">
+	<p>{{ 'LAYOUT.FOOTER' | translate }}</p>
+</footer>

@@ -1,0 +1,36 @@
+:host
+	display: flex
+	flex-direction: column
+	min-height: 100vh
+
+.skip-link
+	position: absolute
+	top: var(--mfe-space-2)
+	left: var(--mfe-space-2)
+	z-index: 10
+	padding: var(--mfe-space-2) var(--mfe-space-3)
+	border-radius: 0.5rem
+	background: var(--mfe-color-surface)
+	color: var(--mfe-color-text)
+	font-weight: 600
+	transform: translateY(-200%)
+	&:focus
+		transform: none
+
+.content
+	flex: 1
+	width: 100%
+	max-width: var(--mfe-content-width)
+	margin: 0 auto
+	padding: 0 var(--mfe-space-3) var(--mfe-space-5)
+	&:focus
+		outline: none
+
+.footer
+	padding: var(--mfe-space-3)
+	border-top: 1px solid var(--mfe-color-border)
+	color: var(--mfe-color-text-muted)
+	font-size: 0.875rem
+	text-align: center
+	p
+		margin: 0

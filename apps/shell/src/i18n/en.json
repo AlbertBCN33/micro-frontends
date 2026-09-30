@@ -1,0 +1,93 @@
+{
+	"LAYOUT": {
+		"SKIP_TO_CONTENT": "Skip to main content",
+		"FOOTER": "MFE Store: a micro-frontend reference app. Nx 23 · Angular 22 · Native Federation."
+	},
+	"LANGUAGES": {
+		"en": "English",
+		"es": "Español"
+	},
+	"HEADER": {
+		"NAV_LABEL": "Main",
+		"DASHBOARD": "Dashboard",
+		"MARKET": "Market",
+		"WISHLIST": "Wish list",
+		"DOCUMENTATION": "Documentation",
+		"LANGUAGE": "Language",
+		"WISHLIST_COUNT": "{count, plural, =0 {, empty} one {, # item} other {, # items}}"
+	},
+	"HOME": {
+		"TITLE": "Dashboard",
+		"SUBTITLE": "One page, three independently deployed apps.",
+		"WISHLIST": {
+			"TITLE": "Your wish list",
+			"COUNT": "{count, plural, =0 {No saved products} one {# saved product} other {# saved products}}",
+			"HINT": "The shell reads this from the shared wishlist contract; the market updates it.",
+			"CTA": "Open wish list"
+		},
+		"MARKET": {
+			"TITLE": "Market",
+			"BODY": "Search and filter the catalog, then save what you like.",
+			"CTA": "Browse the market"
+		},
+		"REMOTES": {
+			"TITLE": "Loaded remotes",
+			"BODY": "Each remote is downloaded only when you first visit it.",
+			"LOADED": "loaded",
+			"NOT_LOADED": "not loaded yet",
+			"CTA": "How it works"
+		}
+	},
+	"NOT_FOUND": {
+		"TITLE": "Page not found",
+		"BODY": "The page you are looking for does not exist.",
+		"CTA": "Go to the dashboard"
+	},
+	"REMOTE_UNAVAILABLE": {
+		"TITLE": "This section is unavailable",
+		"BODY": "The \"{remote}\" app could not be loaded. The rest of the site still works.",
+		"RETRY": "Try again"
+	},
+	"DOCS": {
+		"SUBTITLE": "How this app is put together, and why.",
+		"NAV_LABEL": "Documentation sections",
+		"SYSTEM_DESIGN": {
+			"TITLE": "System design",
+			"INTRO": "The store is split by business domain. Each domain is an Angular app that its own team could build, test and deploy independently. The shell composes them at runtime.",
+			"COMPOSITION": {
+				"HEADING": "Runtime composition",
+				"BODY": "Native Federation (ES modules and import maps on top of the Angular CLI esbuild builder) loads each remote's routes into the shell router. Angular, RxJS and the shared libraries are loaded once and shared as singletons."
+			},
+			"LAZY_LOADING": {
+				"HEADING": "Remotes load on demand",
+				"BODY": "The shell starts with no remote registered. Opening /market or /wishlist fetches that remote's metadata and code for the first time. Remote URLs come from federation.manifest.json, so every environment is configured without rebuilding."
+			},
+			"SHARED_STATE": {
+				"HEADING": "Cross-app state through a contract",
+				"BODY": "The market and the wishlist never import each other. They share a small, versioned library: a signal-based WishlistStore and a WishlistItem snapshot type, with persistence behind a storage port."
+			},
+			"I18N": {
+				"HEADING": "Every app owns its translations",
+				"BODY": "The shell owns the active language. Each remote adds a child translation scope that loads its own en.json and es.json from its own origin, as content-hashed lazy chunks."
+			},
+			"RESILIENCE": {
+				"HEADING": "Failures stay contained",
+				"BODY": "If a remote is down, only its section shows an error page. The navigation, the dashboard and the other remotes keep working."
+			},
+			"VERSIONING": {
+				"HEADING": "Versioned shared libraries",
+				"BODY": "Shared libraries are versioned with Nx Release and conventional commits. Native Federation checks those versions at runtime, so a remote built against an incompatible contract is detected instead of failing silently."
+			}
+		},
+		"DIAGRAM": {
+			"TITLE": "Architecture diagram",
+			"DESC": "The shell on port 4200 lazily loads the market remote on port 4201 and the wishlist remote on port 4202 when their routes are visited. All three apps use the same shared libraries.",
+			"ON_NAVIGATION": "on first visit",
+			"SHARED": "Shared libraries (singletons at runtime)",
+			"CAPTION": "Dashed blue arrows are loaded lazily; solid arrows are build-time dependencies.",
+			"LEGEND_LAZY": "Remotes are fetched the first time their route is visited, never at startup.",
+			"LEGEND_SHARED": "Shared libraries are loaded once and shared by the shell and every remote.",
+			"LEGEND_MANIFEST": "federation.manifest.json maps remote names to URLs for each environment."
+		}
+	}
+}

@@ -1,0 +1,10 @@
+<p class="lead">{{ 'DOCS.SYSTEM_DESIGN.INTRO' | translate }}</p>
+
+@for (section of sections; track section) {
+<section class="section" [attr.aria-labelledby]="'sd-' + section">
+	<h2 [id]="'sd-' + section">
+		{{ 'DOCS.SYSTEM_DESIGN.' + section + '.HEADING' | translate }}
+	</h2>
+	<p>{{ 'DOCS.SYSTEM_DESIGN.' + section + '.BODY' | translate }}</p>
+</section>
+}
