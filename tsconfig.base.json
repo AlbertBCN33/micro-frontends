@@ -18,7 +18,8 @@
 			"@mfe/shared-util-i18n": ["./libs/shared/util-i18n/src/index.ts"],
 			"@mfe/shared-data-access-wishlist": [
 				"./libs/shared/data-access-wishlist/src/index.ts"
-			]
+			],
+			"@mfe/shared-util-e2e": ["./libs/shared/util-e2e/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

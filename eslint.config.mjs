@@ -48,6 +48,16 @@ export default [
 							onlyDependOnLibsWithTags: ['type:util'],
 						},
 						{
+							// e2e suites use shared fixtures only; they test apps
+							// through the browser, never by importing them.
+							sourceTag: 'type:e2e',
+							onlyDependOnLibsWithTags: ['type:e2e-util'],
+						},
+						{
+							sourceTag: 'type:e2e-util',
+							onlyDependOnLibsWithTags: ['type:e2e-util'],
+						},
+						{
 							sourceTag: 'scope:shell',
 							onlyDependOnLibsWithTags: [
 								'scope:shell',

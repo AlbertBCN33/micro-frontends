@@ -1,0 +1,12 @@
+{
+	"name": "shared-util-e2e",
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/shared/util-e2e/src",
+	"projectType": "library",
+	"tags": ["type:e2e-util", "scope:shared"],
+	"targets": {
+		"typecheck": {
+			"command": "tsc -p libs/shared/util-e2e/tsconfig.lib.json --noEmit"
+		}
+	}
+}
