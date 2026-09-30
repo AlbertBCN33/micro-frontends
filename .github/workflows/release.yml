@@ -1,0 +1,42 @@
+name: Release shared libraries
+
+# Manual on purpose: versioning the cross-app contracts is a deliberate act.
+# Nx Release reads conventional commits since each library's last tag, bumps
+# its version (major on BREAKING CHANGE), writes its CHANGELOG.md and tags it.
+on:
+    workflow_dispatch:
+        inputs:
+            dry-run:
+                description: Preview the release without committing or tagging
+                type: boolean
+                default: true
+
+permissions:
+    contents: write
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v5
+              with:
+                  fetch-depth: 0
+
+            - uses: actions/setup-node@v5
+              with:
+                  node-version-file: .nvmrc
+                  cache: npm
+
+            - run: npm ci
+
+            - name: Configure git author
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+            # Libraries are consumed from source inside the monorepo, so there is
+            # nothing to publish to npm; the version is what Native Federation checks.
+            - run: npx nx release --skip-publish ${{ inputs.dry-run && '--dry-run' || '' }}
+
+            - if: ${{ !inputs.dry-run }}
+              run: git push --follow-tags
