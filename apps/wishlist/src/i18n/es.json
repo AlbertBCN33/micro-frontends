@@ -1,0 +1,15 @@
+{
+	"WISHLIST": {
+		"TITLE": "Deseados",
+		"SUBTITLE": "Productos que has guardado desde el mercado. Se guardan en este dispositivo.",
+		"EMPTY": "Tu lista de deseados está vacía.",
+		"BROWSE": "Explorar el mercado",
+		"SUMMARY": "Resumen",
+		"COUNT": "{count, plural, one {# producto guardado} other {# productos guardados}}",
+		"TOTAL": "Total",
+		"CLEAR": "Vaciar la lista",
+		"CLEARED": "Lista de deseados vaciada.",
+		"REMOVE": "Quitar",
+		"REMOVED": "{name} se ha quitado de tu lista de deseados."
+	}
+}

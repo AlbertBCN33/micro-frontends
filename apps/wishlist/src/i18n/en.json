@@ -1,0 +1,15 @@
+{
+	"WISHLIST": {
+		"TITLE": "Wish list",
+		"SUBTITLE": "Products you saved from the market. Stored on this device.",
+		"EMPTY": "Your wish list is empty.",
+		"BROWSE": "Browse the market",
+		"SUMMARY": "Summary",
+		"COUNT": "{count, plural, one {# saved product} other {# saved products}}",
+		"TOTAL": "Total",
+		"CLEAR": "Clear wish list",
+		"CLEARED": "Wish list cleared.",
+		"REMOVE": "Remove",
+		"REMOVED": "{name} removed from your wish list."
+	}
+}

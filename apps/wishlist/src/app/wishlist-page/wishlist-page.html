@@ -1,0 +1,56 @@
+<ui-page-title
+	[heading]="'WISHLIST.TITLE' | translate"
+	[subtitle]="'WISHLIST.SUBTITLE' | translate"
+/>
+
+<p class="visually-hidden" role="status">{{ announcement() }}</p>
+
+@if (store.isEmpty()) {
+<ui-state-message [message]="'WISHLIST.EMPTY' | translate">
+	<a class="mfe-button" [routerLink]="marketPath">
+		{{ 'WISHLIST.BROWSE' | translate }}
+	</a>
+</ui-state-message>
+} @else {
+<section class="summary" aria-labelledby="wishlist-summary">
+	<h2 id="wishlist-summary" class="visually-hidden">
+		{{ 'WISHLIST.SUMMARY' | translate }}
+	</h2>
+	<p>{{ 'WISHLIST.COUNT' | translate: { count: store.count() } }}</p>
+	@for (total of store.totals(); track total.currency) {
+	<p class="total">
+		{{ 'WISHLIST.TOTAL' | translate }}:
+		<strong>{{ total.amount | localizedCurrency: total.currency }}</strong>
+	</p>
+	}
+	<button
+		type="button"
+		class="mfe-button mfe-button--ghost"
+		(click)="clear()"
+	>
+		{{ 'WISHLIST.CLEAR' | translate }}
+	</button>
+</section>
+
+<ul class="grid" role="list">
+	@for (item of store.items(); track item.id) {
+	<li>
+		<ui-product-card
+			[name]="item.name"
+			[price]="item.price | localizedCurrency: item.currency"
+			[imageUrl]="item.imageUrl"
+			[link]="[marketPath, item.id]"
+		>
+			<button
+				type="button"
+				class="mfe-button mfe-button--ghost"
+				(click)="remove(item)"
+			>
+				{{ 'WISHLIST.REMOVE' | translate }}
+				<span class="visually-hidden">{{ item.name }}</span>
+			</button>
+		</ui-product-card>
+	</li>
+	}
+</ul>
+}

@@ -1,0 +1,25 @@
+:host
+	display: block
+
+.summary
+	display: flex
+	flex-wrap: wrap
+	align-items: center
+	gap: var(--mfe-space-3) var(--mfe-space-4)
+	margin-bottom: var(--mfe-space-4)
+	padding: var(--mfe-space-3)
+	border-radius: var(--mfe-radius)
+	background: var(--mfe-color-surface)
+	box-shadow: var(--mfe-shadow)
+	p
+		margin: 0
+	button
+		margin-left: auto
+
+.grid
+	display: grid
+	grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr))
+	gap: var(--mfe-space-4)
+	margin: 0
+	padding: 0
+	list-style: none
