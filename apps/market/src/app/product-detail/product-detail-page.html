@@ -1,0 +1,57 @@
+<a class="back" routerLink=".."
+	><span aria-hidden="true">←</span> {{ 'MARKET.DETAIL.BACK' | translate }}</a
+>
+
+@if (catalog.error()) {
+<ui-state-message kind="error" [message]="'MARKET.ERRORS.LOAD' | translate">
+	<button type="button" class="mfe-button" (click)="catalog.reload()">
+		{{ 'MARKET.COMMON.RETRY' | translate }}
+	</button>
+</ui-state-message>
+} @else if (catalog.isLoading()) {
+<ui-state-message
+	kind="loading"
+	[message]="'MARKET.COMMON.LOADING' | translate"
+/>
+} @else { @if (product(); as product) {
+<article class="detail">
+	<img
+		class="image"
+		[src]="product.imageUrl"
+		alt=""
+		width="640"
+		height="400"
+		fetchpriority="high"
+	/>
+	<div class="info">
+		<ui-page-title
+			[heading]="product.name"
+			[subtitle]="'MARKET.CATEGORY.' + product.category | translate"
+		/>
+		<p class="price">
+			{{ product.price | localizedCurrency: product.currency }}
+		</p>
+		<p class="rating">
+			{{ 'MARKET.DETAIL.RATING' | translate: { rating: product.rating } }}
+		</p>
+		<p class="description">{{ description() }}</p>
+
+		@let saved = wishlist.has(product.id);
+		<button
+			type="button"
+			class="mfe-button"
+			[attr.aria-pressed]="saved"
+			(click)="toggleWishlist()"
+		>
+			{{ (saved ? 'MARKET.WISHLIST.SAVED' : 'MARKET.WISHLIST.SAVE') |
+			translate }}
+		</button>
+	</div>
+</article>
+} @else {
+<ui-state-message [message]="'MARKET.DETAIL.NOT_FOUND' | translate">
+	<a class="mfe-button mfe-button--ghost" routerLink="..">
+		{{ 'MARKET.DETAIL.BACK' | translate }}
+	</a>
+</ui-state-message>
+} }

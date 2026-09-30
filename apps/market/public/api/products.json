@@ -1,0 +1,236 @@
+[
+	{
+		"id": "aurora-anc-headphones",
+		"category": "audio",
+		"name": "Aurora ANC Headphones",
+		"price": 249,
+		"currency": "EUR",
+		"rating": 4.7,
+		"image": "images/audio.svg",
+		"description": {
+			"en": "Over-ear headphones with adaptive noise cancelling and 40 h battery life.",
+			"es": "Auriculares supraaurales con cancelación de ruido adaptativa y 40 h de batería."
+		}
+	},
+	{
+		"id": "pulse-true-wireless",
+		"category": "audio",
+		"name": "Pulse True Wireless Earbuds",
+		"price": 129,
+		"currency": "EUR",
+		"rating": 4.3,
+		"image": "images/audio.svg",
+		"description": {
+			"en": "Compact earbuds with transparency mode and wireless charging case.",
+			"es": "Auriculares compactos con modo ambiente y estuche de carga inalámbrica."
+		}
+	},
+	{
+		"id": "studio-monitor-5",
+		"category": "audio",
+		"name": "Studio Monitor 5",
+		"price": 329,
+		"currency": "EUR",
+		"rating": 4.6,
+		"image": "images/audio.svg",
+		"description": {
+			"en": "Pair of 5-inch powered monitors with a flat, honest frequency response.",
+			"es": "Pareja de monitores activos de 5 pulgadas con respuesta en frecuencia plana."
+		}
+	},
+	{
+		"id": "podcast-usb-mic",
+		"category": "audio",
+		"name": "Podcast USB Microphone",
+		"price": 89,
+		"currency": "EUR",
+		"rating": 4.4,
+		"image": "images/audio.svg",
+		"description": {
+			"en": "Cardioid USB-C microphone with zero-latency headphone output.",
+			"es": "Micrófono USB-C cardioide con salida de auriculares sin latencia."
+		}
+	},
+	{
+		"id": "tenkeyless-mech",
+		"category": "keyboards",
+		"name": "Tenkeyless Mechanical Keyboard",
+		"price": 139,
+		"currency": "EUR",
+		"rating": 4.8,
+		"image": "images/keyboards.svg",
+		"description": {
+			"en": "Hot-swappable switches, PBT keycaps and a gasket-mounted plate.",
+			"es": "Interruptores intercambiables, teclas PBT y placa con montaje gasket."
+		}
+	},
+	{
+		"id": "split-ergo-keyboard",
+		"category": "keyboards",
+		"name": "Split Ergonomic Keyboard",
+		"price": 199,
+		"currency": "EUR",
+		"rating": 4.5,
+		"image": "images/keyboards.svg",
+		"description": {
+			"en": "Fully split layout with tenting feet to reduce wrist strain.",
+			"es": "Diseño totalmente dividido con patas de inclinación para reducir la tensión en las muñecas."
+		}
+	},
+	{
+		"id": "low-profile-wireless",
+		"category": "keyboards",
+		"name": "Low-Profile Wireless Keyboard",
+		"price": 99,
+		"currency": "EUR",
+		"rating": 4.2,
+		"image": "images/keyboards.svg",
+		"description": {
+			"en": "Slim scissor-switch keyboard that pairs with three devices.",
+			"es": "Teclado fino de tijera que se empareja con tres dispositivos."
+		}
+	},
+	{
+		"id": "ultrawide-34",
+		"category": "displays",
+		"name": "34\" Ultrawide Monitor",
+		"price": 549,
+		"currency": "EUR",
+		"rating": 4.6,
+		"image": "images/displays.svg",
+		"description": {
+			"en": "3440×1440 IPS panel with USB-C power delivery for a single-cable desk.",
+			"es": "Panel IPS 3440×1440 con carga USB-C para un escritorio con un solo cable."
+		}
+	},
+	{
+		"id": "4k-27-pro",
+		"category": "displays",
+		"name": "27\" 4K Pro Display",
+		"price": 429,
+		"currency": "EUR",
+		"rating": 4.7,
+		"image": "images/displays.svg",
+		"description": {
+			"en": "Factory-calibrated 4K panel covering 98% of DCI-P3.",
+			"es": "Panel 4K calibrado de fábrica que cubre el 98% de DCI-P3."
+		}
+	},
+	{
+		"id": "portable-15-oled",
+		"category": "displays",
+		"name": "15\" Portable OLED Monitor",
+		"price": 299,
+		"currency": "EUR",
+		"rating": 4.1,
+		"image": "images/displays.svg",
+		"description": {
+			"en": "A 700 g travel screen powered by a single USB-C cable.",
+			"es": "Pantalla de viaje de 700 g alimentada con un solo cable USB-C."
+		}
+	},
+	{
+		"id": "precision-ergo-mouse",
+		"category": "mice",
+		"name": "Precision Ergonomic Mouse",
+		"price": 79,
+		"currency": "EUR",
+		"rating": 4.6,
+		"image": "images/mice.svg",
+		"description": {
+			"en": "Vertical grip, silent clicks and a 70-day battery.",
+			"es": "Agarre vertical, clics silenciosos y 70 días de batería."
+		}
+	},
+	{
+		"id": "featherweight-gaming",
+		"category": "mice",
+		"name": "Featherweight Gaming Mouse",
+		"price": 69,
+		"currency": "EUR",
+		"rating": 4.4,
+		"image": "images/mice.svg",
+		"description": {
+			"en": "58 g shell with a 26k DPI optical sensor.",
+			"es": "Carcasa de 58 g con sensor óptico de 26k DPI."
+		}
+	},
+	{
+		"id": "trackball-thumb",
+		"category": "mice",
+		"name": "Thumb Trackball",
+		"price": 59,
+		"currency": "EUR",
+		"rating": 4,
+		"image": "images/mice.svg",
+		"description": {
+			"en": "Stationary trackball that works on any surface, even the sofa.",
+			"es": "Trackball fijo que funciona sobre cualquier superficie, incluso el sofá."
+		}
+	},
+	{
+		"id": "ultrabook-14",
+		"category": "laptops",
+		"name": "Ultrabook 14",
+		"price": 1299,
+		"currency": "EUR",
+		"rating": 4.5,
+		"image": "images/laptops.svg",
+		"description": {
+			"en": "1.2 kg aluminium laptop with an all-day battery and a 2.8K screen.",
+			"es": "Portátil de aluminio de 1,2 kg con batería para todo el día y pantalla 2.8K."
+		}
+	},
+	{
+		"id": "creator-16",
+		"category": "laptops",
+		"name": "Creator 16",
+		"price": 2199,
+		"currency": "EUR",
+		"rating": 4.7,
+		"image": "images/laptops.svg",
+		"description": {
+			"en": "Workstation-class laptop with a mini-LED display for video editing.",
+			"es": "Portátil de clase workstation con pantalla mini-LED para edición de vídeo."
+		}
+	},
+	{
+		"id": "mirrorless-starter",
+		"category": "cameras",
+		"name": "Mirrorless Starter Kit",
+		"price": 749,
+		"currency": "EUR",
+		"rating": 4.4,
+		"image": "images/cameras.svg",
+		"description": {
+			"en": "24 MP APS-C body with a 15–45 mm kit lens and 4K video.",
+			"es": "Cuerpo APS-C de 24 MP con objetivo 15–45 mm y vídeo 4K."
+		}
+	},
+	{
+		"id": "webcam-4k",
+		"category": "cameras",
+		"name": "4K Streaming Webcam",
+		"price": 159,
+		"currency": "EUR",
+		"rating": 4.2,
+		"image": "images/cameras.svg",
+		"description": {
+			"en": "Auto-framing webcam with HDR and a physical privacy shutter.",
+			"es": "Webcam con encuadre automático, HDR y tapa de privacidad física."
+		}
+	},
+	{
+		"id": "action-cam-x",
+		"category": "cameras",
+		"name": "Action Cam X",
+		"price": 379,
+		"currency": "EUR",
+		"rating": 4.3,
+		"image": "images/cameras.svg",
+		"description": {
+			"en": "Waterproof to 10 m with horizon-lock stabilisation.",
+			"es": "Sumergible hasta 10 m con estabilización de horizonte."
+		}
+	}
+]

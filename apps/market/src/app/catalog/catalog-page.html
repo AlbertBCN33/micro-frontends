@@ -1,0 +1,106 @@
+<ui-page-title
+	[heading]="'MARKET.CATALOG.TITLE' | translate"
+	[subtitle]="'MARKET.CATALOG.SUBTITLE' | translate"
+/>
+
+<form class="filters" role="search" (submit)="$event.preventDefault()">
+	<div class="field field--grow">
+		<label for="catalog-search"
+			>{{ 'MARKET.FILTERS.SEARCH' | translate }}</label
+		>
+		<input
+			id="catalog-search"
+			type="search"
+			autocomplete="off"
+			[value]="filter().query"
+			[placeholder]="'MARKET.FILTERS.SEARCH_PLACEHOLDER' | translate"
+			(input)="onSearch($event)"
+		/>
+	</div>
+
+	<div class="field">
+		<label for="catalog-category"
+			>{{ 'MARKET.FILTERS.CATEGORY' | translate }}</label
+		>
+		<select id="catalog-category" (change)="onCategory($event)">
+			<option value="" [selected]="!filter().category">
+				{{ 'MARKET.FILTERS.ALL_CATEGORIES' | translate }}
+			</option>
+			@for (category of categories; track category) {
+			<option
+				[value]="category"
+				[selected]="filter().category === category"
+			>
+				{{ 'MARKET.CATEGORY.' + category | translate }}
+			</option>
+			}
+		</select>
+	</div>
+
+	<div class="field">
+		<label for="catalog-sort"
+			>{{ 'MARKET.FILTERS.SORT' | translate }}</label
+		>
+		<select id="catalog-sort" (change)="onSort($event)">
+			@for (option of sortOptions; track option) {
+			<option [value]="option" [selected]="filter().sort === option">
+				{{ 'MARKET.SORT.' + option | translate }}
+			</option>
+			}
+		</select>
+	</div>
+</form>
+
+@if (catalog.error()) {
+<ui-state-message kind="error" [message]="'MARKET.ERRORS.LOAD' | translate">
+	<button type="button" class="mfe-button" (click)="catalog.reload()">
+		{{ 'MARKET.COMMON.RETRY' | translate }}
+	</button>
+</ui-state-message>
+} @else if (catalog.isLoading()) {
+<ui-state-message
+	kind="loading"
+	[message]="'MARKET.COMMON.LOADING' | translate"
+/>
+} @else {
+<p class="result-count" role="status">
+	{{ 'MARKET.CATALOG.RESULTS' | translate: { count: results().length } }}
+</p>
+
+@if (results().length) {
+<ul class="grid" role="list">
+	@for (product of results(); track product.id) {
+	<li>
+		<ui-product-card
+			[name]="product.name"
+			[price]="product.price | localizedCurrency: product.currency"
+			[imageUrl]="product.imageUrl"
+			[link]="[product.id]"
+			[meta]="'MARKET.CATEGORY.' + product.category | translate"
+		>
+			@let saved = wishlist.has(product.id);
+			<button
+				type="button"
+				class="mfe-button"
+				[attr.aria-pressed]="saved"
+				(click)="toggleWishlist(product)"
+			>
+				{{ (saved ? 'MARKET.WISHLIST.SAVED' : 'MARKET.WISHLIST.SAVE') |
+				translate }}
+				<span class="visually-hidden">{{ product.name }}</span>
+			</button>
+		</ui-product-card>
+	</li>
+	}
+</ul>
+} @else {
+<ui-state-message [message]="'MARKET.CATALOG.EMPTY' | translate">
+	<button
+		type="button"
+		class="mfe-button mfe-button--ghost"
+		(click)="clearFilters()"
+	>
+		{{ 'MARKET.FILTERS.CLEAR' | translate }}
+	</button>
+</ui-state-message>
+} }

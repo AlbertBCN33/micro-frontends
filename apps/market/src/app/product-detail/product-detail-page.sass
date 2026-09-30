@@ -1,0 +1,32 @@
+:host
+	display: block
+
+.back
+	display: inline-block
+	margin-top: var(--mfe-space-3)
+	font-weight: 600
+
+.detail
+	display: grid
+	grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr))
+	gap: var(--mfe-space-5)
+	align-items: start
+	margin-top: var(--mfe-space-3)
+
+.image
+	width: 100%
+	aspect-ratio: 16 / 10
+	object-fit: cover
+	border-radius: var(--mfe-radius)
+
+.price
+	margin: 0
+	font-size: 1.75rem
+	font-weight: 700
+
+.rating
+	color: var(--mfe-color-text-muted)
+
+.description
+	max-width: 60ch
+	margin-bottom: var(--mfe-space-4)

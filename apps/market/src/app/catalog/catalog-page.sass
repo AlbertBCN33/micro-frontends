@@ -1,0 +1,39 @@
+:host
+	display: block
+
+.filters
+	display: flex
+	flex-wrap: wrap
+	gap: var(--mfe-space-3)
+	align-items: end
+	margin-bottom: var(--mfe-space-3)
+
+.field
+	display: grid
+	gap: var(--mfe-space-1)
+	min-width: 12rem
+	label
+		font-weight: 600
+	input, select
+		min-height: 2.75rem
+		padding: 0 var(--mfe-space-2)
+		border: 1px solid var(--mfe-color-border)
+		border-radius: 0.5rem
+		background: var(--mfe-color-surface)
+		color: inherit
+		font: inherit
+
+.field--grow
+	flex: 1 1 16rem
+
+.result-count
+	margin: 0 0 var(--mfe-space-3)
+	color: var(--mfe-color-text-muted)
+
+.grid
+	display: grid
+	grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr))
+	gap: var(--mfe-space-4)
+	margin: 0
+	padding: 0
+	list-style: none

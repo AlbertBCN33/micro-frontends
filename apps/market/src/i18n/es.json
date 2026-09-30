@@ -1,0 +1,49 @@
+{
+	"MARKET": {
+		"TITLE": "Mercado",
+		"COMMON": {
+			"LOADING": "Cargando productos…",
+			"RETRY": "Reintentar"
+		},
+		"CATALOG": {
+			"TITLE": "Mercado",
+			"SUBTITLE": "Equipo seleccionado para tu escritorio, tu música y tus viajes.",
+			"RESULTS": "{count, plural, =0 {Ningún producto} one {# producto} other {# productos}}",
+			"EMPTY": "Ningún producto coincide con tus filtros."
+		},
+		"FILTERS": {
+			"SEARCH": "Buscar",
+			"SEARCH_PLACEHOLDER": "Buscar por nombre",
+			"CATEGORY": "Categoría",
+			"ALL_CATEGORIES": "Todas las categorías",
+			"SORT": "Ordenar por",
+			"CLEAR": "Quitar filtros"
+		},
+		"SORT": {
+			"featured": "Destacados",
+			"price-asc": "Precio: de menor a mayor",
+			"price-desc": "Precio: de mayor a menor",
+			"rating": "Mejor valorados"
+		},
+		"CATEGORY": {
+			"audio": "Audio",
+			"keyboards": "Teclados",
+			"displays": "Monitores",
+			"mice": "Ratones",
+			"laptops": "Portátiles",
+			"cameras": "Cámaras"
+		},
+		"WISHLIST": {
+			"SAVE": "Guardar en deseados",
+			"SAVED": "Guardado"
+		},
+		"DETAIL": {
+			"BACK": "Volver al mercado",
+			"RATING": "Valoración de {rating} sobre 5",
+			"NOT_FOUND": "No hemos encontrado ese producto."
+		},
+		"ERRORS": {
+			"LOAD": "No se ha podido cargar el catálogo."
+		}
+	}
+}
