@@ -1,10 +1,36 @@
 # MFE Store: micro-frontends with Nx, Angular 22 and Native Federation
 
+<!-- docs:exclude-start -->
+
 [![CI](https://github.com/AlbertBCN33/micro-frontends/actions/workflows/ci.yml/badge.svg)](https://github.com/AlbertBCN33/micro-frontends/actions/workflows/ci.yml)
+
+<!-- docs:exclude-end -->
 
 A small store split into **three independently deployable Angular apps**,
 composed at runtime. It's a reference for how I structure, test and document a
 frontend platform that several teams could work on.
+
+<!-- docs:exclude-start -->
+
+## Contents
+
+- [The problem](#the-problem)
+- [What's inside](#whats-inside)
+- [Quick start](#quick-start)
+- [Decisions and tradeoffs](#decisions-and-tradeoffs) ·
+  **[all Architecture Decision Records](docs/adr/README.md)**
+- [Quality](#quality): [testing](#testing), [accessibility](#accessibility),
+  [performance](#performance), [TypeScript](#typescript),
+  [CI and versioning](#ci-and-versioning)
+- [Repository layout](#repository-layout)
+
+<!-- docs:exclude-end -->
+
+> **Architecture Decision Records:** every significant choice in this repo,
+> with its context, the alternatives and what it costs, is written up in
+> **[docs/adr](docs/adr/README.md)**.
+
+<!-- docs:exclude-start -->
 
 > **Live demo:** coming soon (Firebase Hosting). To run it locally, see
 > [Quick start](#quick-start).
@@ -14,6 +40,8 @@ frontend platform that several teams could work on.
 | Dashboard                               | Wish list (Spanish)                                  | Architecture page                                     |
 | --------------------------------------- | ---------------------------------------------------- | ----------------------------------------------------- |
 | ![Dashboard](docs/images/dashboard.png) | ![Wish list in Spanish](docs/images/wishlist-es.png) | ![Architecture diagram](docs/images/architecture.png) |
+
+<!-- docs:exclude-end -->
 
 ## The problem
 
@@ -30,9 +58,11 @@ isn't splitting an app in three; it's everything between the pieces:
   "independent" apps become a distributed monolith.
 
 This repo solves each of those explicitly, tests them end to end, and records
-every decision in an ADR.
+every decision in an [ADR](docs/adr/README.md).
 
 ## What's inside
+
+<!-- docs:exclude-start -->
 
 ```mermaid
 flowchart TB
@@ -52,17 +82,23 @@ flowchart TB
     wishlist --> libs
 ```
 
+<!-- docs:exclude-end -->
+
 | Project                            | Type   | Responsibility                                                                      |
 | ---------------------------------- | ------ | ----------------------------------------------------------------------------------- |
 | `apps/shell`                       | host   | Layout, navigation, language, dashboard, docs, lazy remote loading                  |
+| `apps/shell/e2e`                   | e2e    | Playwright + axe suite against the composed production build (Nx: `shell-e2e`)      |
 | `apps/market`                      | remote | Catalog with search, filters and sort (in the URL), product detail                  |
 | `apps/wishlist`                    | remote | Saved products, totals, remove/clear                                                |
 | `libs/shared/ui`                   | ui     | Presentational components (card, title, empty/error/loading state) and theme tokens |
 | `libs/shared/util-i18n`            | util   | Root and scoped translations, language preference, currency pipe, route titles      |
 | `libs/shared/data-access-wishlist` | data   | The cross-app contract: `WishlistItem`, `WishlistStore`, storage port               |
-| `apps/shell-e2e`                   | e2e    | Playwright suite against the composed production build                              |
 
-Run `npm run graph` to explore the dependency graph.
+The app documents itself: its **Documentation** page shows the system design,
+an architecture diagram and this README. Run `npm run graph` to explore the Nx
+dependency graph.
+
+<!-- docs:exclude-start -->
 
 ## Quick start
 
@@ -71,7 +107,7 @@ Requires **Node 24 LTS** (see `.nvmrc`; Angular 22 needs ≥ 22.22 or ≥ 24.15)
 ```sh
 npm ci
 cp .env.example .env   # optional: Firebase web config (git-ignored)
-npm start          # market → wishlist → shell, then open http://localhost:4200
+npm start              # market → wishlist → shell, then open http://localhost:4200
 ```
 
 Each remote also runs standalone, with its own dev harness:
@@ -91,10 +127,12 @@ npm start -- market    # http://localhost:4201
 | `npm run serve:dist`  | Builds and serves the production output the way the static host will                            |
 | `npm run release:dry` | Preview the next versions and changelogs of the shared libraries                                |
 
+<!-- docs:exclude-end -->
+
 ## Decisions and tradeoffs
 
 The short version. Each point links to its ADR, with context and the
-alternatives that lost.
+alternatives that lost. **The full list is in [docs/adr](docs/adr/README.md).**
 
 1. **Native Federation, not webpack Module Federation.** Nx 23 deprecated
    its Angular Module Federation generators (removal in v24). Native
@@ -114,11 +152,11 @@ alternatives that lost.
    explicit with versioning and `strictVersion`, and covered by e2e.
    → [ADR 0003](docs/adr/0003-cross-app-state-contract.md)
 
-4. **Each app ships its own translations** through ngx-translate child scopes.
-   Files are content-hashed chunks served from the owning app's origin, with
-   ICU plurals. _Cost:_ runtime i18n is heavier than Angular's compile-time
-   i18n, which in exchange needs one build per locale per app.
-   → [ADR 0004](docs/adr/0004-per-app-translations.md)
+4. **Each app ships its own translations** (`src/assets/i18n`) through
+   ngx-translate child scopes. Files are content-hashed chunks served from the
+   owning app's origin, with ICU plurals and number formatting. _Cost:_
+   runtime i18n is heavier than Angular's compile-time i18n, which in exchange
+   needs one build per locale per app. → [ADR 0004](docs/adr/0004-per-app-translations.md)
 
 5. **No backend.** The catalog is a static file behind injection tokens and a
    validating parser, so a real API is a one-line swap. MSW was planned and
@@ -139,11 +177,12 @@ alternatives that lost.
 
 → [ADR 0008](docs/adr/0008-testing-strategy.md)
 
-- **47 unit and component tests** (Vitest): parsers, filters, the store,
-  language resolution, and the federation loader (lazy registration,
-  deduplication, retry, contract violations). Components are tested through
-  roles and live regions.
-- **37 end-to-end tests** (Playwright, desktop and mobile) on the production
+- **81 unit and component tests** (Vitest). Every page and layout component
+  is tested through its rendered output with real routing and the app's real
+  translation files, so a missing key fails a test. They also cover parsers,
+  filters, the store, language resolution, and the federation loader (lazy
+  registration, deduplication, retry, contract violations).
+- **22 end-to-end scenarios** (Playwright, run on desktop and mobile) on the production
   build. They cover lazy loading by counting requests per origin, cross-app
   state, i18n across apps, a remote going down, API failure with retry,
   and keyboard and focus flows. Any uncaught page error fails the test.
@@ -164,7 +203,8 @@ alternatives that lost.
 - The shell's initial JavaScript is about **40 kB transferred**. Angular, RxJS
   and shared libraries arrive once, as long-cacheable shared bundles.
 - A remote costs nothing until it's visited. Translations load per language
-  and per app.
+  and per app. The documentation README and its Markdown renderer load only
+  when that tab is opened.
 - Zoneless change detection, signals, and `httpResource`. OnPush is the
   default in Angular 22.
 
@@ -173,6 +213,7 @@ alternatives that lost.
 - `strict`, `strictTemplates`, `noPropertyAccessFromIndexSignature`, and
   runtime validation wherever data crosses a trust boundary (API payloads,
   localStorage).
+- Components keep templates and styles in their own files; lint enforces it.
 
 ### CI and versioning
 
@@ -191,23 +232,16 @@ alternatives that lost.
 ```
 apps/
   shell/                  host: layout, dashboard, docs, federation/
-  market/                 remote: catalog/, product-detail/, data/, i18n/
-  wishlist/               remote: wishlist-page/, i18n/
-  shell-e2e/              Playwright + axe
+    e2e/                  Playwright + axe (Nx project shell-e2e)
+    src/assets/i18n/      en.json, es.json
+  market/                 remote: catalog/, product-detail/, data/
+    src/assets/i18n/      en.json, es.json
+  wishlist/               remote: wishlist-page/
+    src/assets/i18n/      en.json, es.json
 libs/shared/
   ui/                     presentational components + theme.css
   util-i18n/              translation providers, language preference
   data-access-wishlist/   cross-app contract
-tools/scripts/            serve-all (dev), serve-dist (prod-like), check-i18n
+tools/scripts/            serve-all (dev), serve-dist (prod-like), check-i18n, generate-env
 docs/adr/                 architecture decision records
 ```
-
-## Roadmap
-
-- Deploy to Firebase Hosting: one site per app, CORS headers on the remotes,
-  and a manifest per environment. Then add the live link above.
-- Preview deployments per PR, and run the e2e suite against them
-  (`BASE_URL=… npm run e2e`).
-- Prefetch remotes on navigation intent, if real-user metrics justify it.
-- Visual regression tests once the UI settles.
-- Report the Native Federation dev-cache race upstream.
