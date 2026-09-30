@@ -87,12 +87,15 @@ flowchart TB
 | Project                            | Type   | Responsibility                                                                      |
 | ---------------------------------- | ------ | ----------------------------------------------------------------------------------- |
 | `apps/shell`                       | host   | Layout, navigation, language, dashboard, docs, lazy remote loading                  |
-| `apps/shell/e2e`                   | e2e    | Playwright + axe suite against the composed production build (Nx: `shell-e2e`)      |
+| `apps/shell/e2e`                   | e2e    | Journeys across apps and the shell's own pages, on the composed app (`shell-e2e`)   |
 | `apps/market`                      | remote | Catalog with search, filters and sort (in the URL), product detail                  |
+| `apps/market/e2e`                  | e2e    | Market-only journeys, on the standalone market (`market-e2e`)                       |
 | `apps/wishlist`                    | remote | Saved products, totals, remove/clear                                                |
+| `apps/wishlist/e2e`                | e2e    | Wishlist-only journeys, on the standalone wishlist (`wishlist-e2e`)                 |
 | `libs/shared/ui`                   | ui     | Presentational components (card, title, empty/error/loading state) and theme tokens |
 | `libs/shared/util-i18n`            | util   | Root and scoped translations, language preference, currency pipe, route titles      |
 | `libs/shared/data-access-wishlist` | data   | The cross-app contract: `WishlistItem`, `WishlistStore`, storage port               |
+| `libs/shared/util-e2e`             | e2e    | Shared Playwright fixtures: axe, clean device, fail on page errors                  |
 
 The app documents itself: its **Documentation** page shows the system design,
 an architecture diagram and this README. Run `npm run graph` to explore the Nx
@@ -120,7 +123,7 @@ npm start -- market    # http://localhost:4201
 | --------------------- | ----------------------------------------------------------------------------------------------- |
 | `npm start`           | Dev servers for all apps (started in order, see [ADR 0001](docs/adr/0001-native-federation.md)) |
 | `npm test`            | Unit and component tests (Vitest), all projects                                                 |
-| `npm run e2e`         | Builds everything and runs Playwright + axe against the production build                        |
+| `npm run e2e`         | Builds the apps and runs every e2e suite (Playwright + axe) against production builds           |
 | `npm run lint`        | ESLint, including module-boundary rules                                                         |
 | `npm run typecheck`   | `tsc --noEmit` per project, including test files                                                |
 | `npm run i18n:check`  | Key parity across languages and ICU syntax, per app                                             |
@@ -182,14 +185,23 @@ alternatives that lost. **The full list is in [docs/adr](docs/adr/README.md).**
   translation files, so a missing key fails a test. They also cover parsers,
   filters, the store, language resolution, and the federation loader (lazy
   registration, deduplication, retry, contract violations).
-- **22 end-to-end scenarios** (Playwright, run on desktop and mobile) on the production
-  build. They cover lazy loading by counting requests per origin, cross-app
-  state, i18n across apps, a remote going down, API failure with retry,
-  and keyboard and focus flows. Any uncaught page error fails the test.
+- **29 end-to-end scenarios** (Playwright, run on desktop and mobile) on
+  production builds, **owned by the app whose journey they test**:
+    - each remote's suite (`apps/<remote>/e2e`) tests journeys that stay inside
+      that remote, against the remote's _standalone_ build, so its team can
+      verify and ship without the shell;
+    - the shell's suite tests journeys that cross apps (lazy loading counted per
+      origin, cross-app state, i18n across apps, a remote going down) and the
+      shell's own pages, keyboard and focus flows.
+
+    Nx runs only the suites a change affects: a market change runs the market's
+    suite plus the shell's cross-app suite; a shell-only change never runs the
+    remotes' suites. Any uncaught page error fails the test.
 
 ### Accessibility
 
-- **axe-core, WCAG 2.2 A/AA, on every page** in e2e; no violations allowed.
+- **axe-core, WCAG 2.2 A/AA, on every page** in e2e (each app audits its own
+  pages, the shell also audits composed pages); no violations allowed.
 - A skip link, focus moved to `<main>` on route changes (but not on
   search-as-you-type), `aria-current` on navigation, and `aria-pressed` on
   toggles.
@@ -219,8 +231,7 @@ alternatives that lost. **The full list is in [docs/adr](docs/adr/README.md).**
 
 - **CI** ([`ci.yml`](.github/workflows/ci.yml)) runs format, i18n, then
   lint, typecheck, test and build on **affected projects only**, with the Nx
-  cache persisted between runs. Playwright only runs when the e2e project is
-  affected.
+  cache persisted between runs. Only affected e2e suites run, one at a time.
 - **Release** ([`release.yml`](.github/workflows/release.yml)) runs
   `nx release` on the shared libraries. It uses conventional commits,
   independent versions, per-library changelogs and git tags. Versions are
@@ -232,16 +243,19 @@ alternatives that lost. **The full list is in [docs/adr](docs/adr/README.md).**
 ```
 apps/
   shell/                  host: layout, dashboard, docs, federation/
-    e2e/                  Playwright + axe (Nx project shell-e2e)
+    e2e/                  cross-app journeys + shell pages (shell-e2e)
     src/assets/i18n/      en.json, es.json
   market/                 remote: catalog/, product-detail/, data/
+    e2e/                  market-only journeys (market-e2e)
     src/assets/i18n/      en.json, es.json
   wishlist/               remote: wishlist-page/
+    e2e/                  wishlist-only journeys (wishlist-e2e)
     src/assets/i18n/      en.json, es.json
 libs/shared/
   ui/                     presentational components + theme.css
   util-i18n/              translation providers, language preference
   data-access-wishlist/   cross-app contract
+  util-e2e/               shared Playwright fixtures
 tools/scripts/            serve-all (dev), serve-dist (prod-like), check-i18n, generate-env
 docs/adr/                 architecture decision records
 ```

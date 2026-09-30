@@ -19,6 +19,8 @@ one remote into another turns runtime composition into build-time coupling.
 | `type:ui`          | `type:ui`, `type:util`                     |
 | `type:data-access` | `type:data-access`, `type:util`            |
 | `type:util`        | `type:util`                                |
+| `type:e2e`         | `type:e2e-util`                            |
+| `type:e2e-util`    | `type:e2e-util`                            |
 | `scope:<app>`      | its own scope, `scope:shared`              |
 | `scope:shared`     | `scope:shared`                             |
 
@@ -32,6 +34,10 @@ and conventional commits (`nx release`, see `.github/workflows/release.yml`).
 Versions are bumped in the **source** `package.json`. Native Federation reads
 it at build time and enforces it at runtime (`strictVersion`), so a breaking
 change to a contract is visible to remotes deployed on their own schedule.
+
+**Tests through the browser only.** e2e projects may import shared fixtures
+(`type:e2e-util`) but never an app or a runtime library: they test apps the
+way users reach them. Apps cannot import the fixtures either.
 
 **Presentational UI.** `@mfe/shared-ui` has no i18n or state dependency:
 components take translated strings and project actions.
