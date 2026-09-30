@@ -21,7 +21,9 @@ export const routes: Routes = [
 		path: '',
 		providers: [
 			ProductCatalog,
-			provideScopedTranslations((lang) => import(`../i18n/${lang}.json`)),
+			provideScopedTranslations(
+				(lang) => import(`../assets/i18n/${lang}.json`),
+			),
 		],
 		children: [
 			{

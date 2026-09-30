@@ -21,7 +21,7 @@ Constraints:
   `provideScopedTranslations()` (a child service). The child loads the remote's
   own files, follows the root language, and falls back to the root for keys it
   does not define.
-- **Files are imported, not fetched.** `(lang) => import(`../i18n/${lang}.json`)`
+- **Files are imported, not fetched.** They live in each app's `src/assets/i18n/`. `(lang) => import(`../assets/i18n/${lang}.json`)`
   is declared inside each app. esbuild emits one content-hashed chunk per
   language per app, served from that app's origin like the rest of its code.
   This solves the origin problem and gives cache-busting for free.

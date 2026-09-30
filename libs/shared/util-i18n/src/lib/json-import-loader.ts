@@ -9,7 +9,7 @@ import { Language } from './languages';
  * the relative path against that app's sources:
  *
  * ```ts
- * const importer: TranslationImporter = (lang) => import(`../i18n/${lang}.json`);
+ * const importer: TranslationImporter = (lang) => import(`../assets/i18n/${lang}.json`);
  * ```
  *
  * The bundler then emits one content-hashed chunk per language, served from the

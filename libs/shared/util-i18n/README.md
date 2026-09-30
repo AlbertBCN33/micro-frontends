@@ -15,7 +15,7 @@ Declare the importer **inside the app**, so the bundler resolves the app's own
 files:
 
 ```ts
-provideScopedTranslations((lang) => import(`../i18n/${lang}.json`));
+provideScopedTranslations((lang) => import(`../assets/i18n/${lang}.json`));
 ```
 
 Messages use ICU MessageFormat. `npm run i18n:check` validates key parity and

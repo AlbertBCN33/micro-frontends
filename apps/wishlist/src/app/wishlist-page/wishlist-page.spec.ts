@@ -18,7 +18,7 @@ async function render(
 			provideRouter([]),
 			// Real English file: the test also proves the keys exist.
 			provideRootTranslations(
-				(lang) => import(`../../i18n/${lang}.json`),
+				(lang) => import(`../../assets/i18n/${lang}.json`),
 			),
 			{
 				provide: WishlistStorage,

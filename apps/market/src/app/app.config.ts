@@ -16,7 +16,7 @@ export const appConfig: ApplicationConfig = {
 		provideBrowserGlobalErrorListeners(),
 		provideHttpClient(withFetch()),
 		provideRootTranslations(
-			(lang) => import(`../i18n/${lang}.json`),
+			(lang) => import(`../assets/i18n/${lang}.json`),
 			resolveInitialLanguage(),
 		),
 		provideRouter([

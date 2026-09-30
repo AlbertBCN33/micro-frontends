@@ -22,7 +22,7 @@ function flatten(object, prefix = '') {
 }
 
 for (const app of readdirSync(APPS_DIR)) {
-	const dir = join(APPS_DIR, app, 'src', 'i18n');
+	const dir = join(APPS_DIR, app, 'src', 'assets', 'i18n');
 	if (!existsSync(dir)) continue;
 
 	const files = readdirSync(dir).filter((file) => file.endsWith('.json'));
