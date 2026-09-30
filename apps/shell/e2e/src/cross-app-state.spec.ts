@@ -2,8 +2,13 @@ import { expect, test } from './support/fixtures';
 
 test('saving in the market updates the shell and the wishlist remote', async ({
 	page,
+	expectAccessible,
 }) => {
 	await page.goto('/market');
+	// Composed pages (shell chrome + remote) are audited here: issues such as
+	// duplicate ids or landmarks only exist when both render together.
+	await expect(page.getByText('18 products')).toBeVisible();
+	await expectAccessible(page);
 	const wishlistLink = page.getByTestId('wishlist-link');
 	await expect(wishlistLink).toContainText('empty');
 
@@ -26,6 +31,7 @@ test('saving in the market updates the shell and the wishlist remote', async ({
 		'Wish list',
 	);
 	await expect(page.getByText('1 saved product')).toBeVisible();
+	await expectAccessible(page);
 
 	// Persisted across reloads (storage adapter).
 	await page.reload();

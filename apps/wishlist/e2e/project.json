@@ -1,0 +1,21 @@
+{
+	"name": "wishlist-e2e",
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "application",
+	"sourceRoot": "apps/wishlist/e2e/src",
+	"tags": ["type:e2e", "scope:wishlist"],
+	"implicitDependencies": ["wishlist"],
+	"targets": {
+		"e2e": {
+			"dependsOn": [
+				{
+					"projects": ["wishlist"],
+					"target": "build"
+				}
+			]
+		},
+		"typecheck": {
+			"command": "tsc -p apps/wishlist/e2e/tsconfig.json --noEmit"
+		}
+	}
+}

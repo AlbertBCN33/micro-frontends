@@ -66,6 +66,9 @@
 		"typecheck": {
 			"cache": true,
 			"inputs": ["default", "^production"]
+		},
+		"e2e": {
+			"parallelism": false
 		}
 	},
 	"generators": {

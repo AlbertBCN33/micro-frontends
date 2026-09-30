@@ -13,19 +13,3 @@ test('a broken remote is contained to its own section', async ({ page }) => {
 	await page.getByRole('link', { name: 'Market', exact: true }).click();
 	await expect(page.getByText('18 products')).toBeVisible();
 });
-
-test('a failing catalog request shows a retry', async ({ page }) => {
-	let fail = true;
-	await page.route('**/api/products.json', (route) =>
-		fail ? route.fulfill({ status: 500 }) : route.continue(),
-	);
-
-	await page.goto('/market');
-	await expect(page.getByRole('alert')).toHaveText(
-		/The catalog could not be loaded/,
-	);
-
-	fail = false;
-	await page.getByRole('button', { name: 'Try again' }).click();
-	await expect(page.getByText('18 products')).toBeVisible();
-});

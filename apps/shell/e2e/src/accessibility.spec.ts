@@ -1,10 +1,9 @@
 import { expect, test } from './support/fixtures';
 
+// The shell's own pages. Remote pages are audited by each remote's suite,
+// and in composition by cross-app-state.spec.ts.
 const pages = [
 	{ path: '/', heading: 'Dashboard' },
-	{ path: '/market', heading: 'Market' },
-	{ path: '/market/ultrawide-34', heading: '34" Ultrawide Monitor' },
-	{ path: '/wishlist', heading: 'Wish list' },
 	{ path: '/documentation/system-design', heading: 'Documentation' },
 	{ path: '/documentation/architecture-diagram', heading: 'Documentation' },
 	{ path: '/documentation/readme', heading: 'Documentation' },

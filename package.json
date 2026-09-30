@@ -12,7 +12,7 @@
 		"test": "nx run-many -t test",
 		"lint": "nx run-many -t lint",
 		"typecheck": "nx run-many -t typecheck",
-		"e2e": "nx e2e shell-e2e",
+		"e2e": "nx run-many -t e2e",
 		"serve:dist": "nx run-many -t build && node tools/scripts/serve-dist.mjs",
 		"format": "nx format:write",
 		"release:dry": "nx release --dry-run --skip-publish",

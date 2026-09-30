@@ -9,18 +9,31 @@
  *   else (index.html, remoteEntry.json, the manifest, catalog data, images)
  *   keeps a stable name, so it must be revalidated.
  *
- * Used by the e2e suite and `npm run serve:dist`. Zero dependencies on purpose.
+ * Usage:
+ *   node tools/scripts/serve-dist.mjs                 all apps, usual ports
+ *   node tools/scripts/serve-dist.mjs market:4301     one app, custom port
+ *
+ * Used by the e2e suites (each remote's suite serves only its own app, on its
+ * own port, so suites never share servers) and `npm run serve:dist`.
+ * Zero dependencies on purpose.
  */
 import { createReadStream, existsSync, statSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { extname, join, normalize, resolve } from 'node:path';
 
 const ROOT = resolve(import.meta.dirname, '../../dist/apps');
-const APPS = [
-	{ name: 'shell', port: 4200 },
-	{ name: 'market', port: 4201 },
-	{ name: 'wishlist', port: 4202 },
-];
+const DEFAULT_PORTS = { shell: 4200, market: 4201, wishlist: 4202 };
+const APPS =
+	process.argv.length > 2
+		? process.argv.slice(2).map((arg) => {
+				const [name, port] = arg.split(':');
+				if (!(name in DEFAULT_PORTS)) {
+					console.error(`Unknown app "${name}"`);
+					process.exit(1);
+				}
+				return { name, port: Number(port ?? DEFAULT_PORTS[name]) };
+			})
+		: Object.entries(DEFAULT_PORTS).map(([name, port]) => ({ name, port }));
 const TYPES = {
 	'.html': 'text/html; charset=utf-8',
 	'.js': 'text/javascript; charset=utf-8',

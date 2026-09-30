@@ -3,14 +3,16 @@ import { nxE2EPreset } from '@nx/playwright/preset';
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * End-to-end tests of the *composed* app: shell plus both remotes.
+ * End-to-end tests of journeys across apps, and of the shell's own pages,
+ * on the *composed* app: shell plus both remotes. Journeys that stay inside a
+ * remote live in that remote's e2e project.
  *
  * They run against production builds served the way the static host serves
  * them (see tools/scripts/serve-dist.mjs), so they exercise real federation:
- * import maps, cross-origin remotes and hashed translation chunks. Set BASE_URL
+ * import maps, cross-origin remotes and hashed translation chunks. Set E2E_SHELL_URL
  * to run the same suite against a deployed preview.
  */
-const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
+const baseURL = process.env['E2E_SHELL_URL'] || 'http://localhost:4200';
 
 export default defineConfig({
 	...nxE2EPreset(import.meta.dirname, { testDir: './src' }),
@@ -25,7 +27,7 @@ export default defineConfig({
 		locale: 'en-US',
 		trace: 'on-first-retry',
 	},
-	webServer: process.env['BASE_URL']
+	webServer: process.env['E2E_SHELL_URL']
 		? undefined
 		: {
 				command: 'node tools/scripts/serve-dist.mjs',

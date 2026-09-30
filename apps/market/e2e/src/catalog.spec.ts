@@ -1,4 +1,4 @@
-import { expect, test } from './support/fixtures';
+import { expect, test } from '@mfe/shared-util-e2e';
 
 test('filters live in the URL and survive a reload', async ({ page }) => {
 	await page.goto('/market');
@@ -7,7 +7,7 @@ test('filters live in the URL and survive a reload', async ({ page }) => {
 
 	await expect(page).toHaveURL(/q=mouse/);
 	await expect(page.getByText('2 products')).toBeVisible();
-	// Search-as-you-type must not steal focus (route-change focus handling).
+	// Search-as-you-type must never steal focus from the input.
 	await expect(search).toBeFocused();
 
 	await page.getByLabel('Sort by').selectOption('price-asc');
@@ -41,4 +41,20 @@ test('unknown products show a not-found state', async ({ page }) => {
 	await expect(
 		page.getByText("We couldn't find that product."),
 	).toBeVisible();
+});
+
+test('a failing catalog request shows a retry', async ({ page }) => {
+	let fail = true;
+	await page.route('**/api/products.json', (route) =>
+		fail ? route.fulfill({ status: 500 }) : route.continue(),
+	);
+
+	await page.goto('/market');
+	await expect(page.getByRole('alert')).toHaveText(
+		/The catalog could not be loaded/,
+	);
+
+	fail = false;
+	await page.getByRole('button', { name: 'Try again' }).click();
+	await expect(page.getByText('18 products')).toBeVisible();
 });

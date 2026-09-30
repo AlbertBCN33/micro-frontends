@@ -6,6 +6,11 @@ export default [
 	...nx.configs['flat/angular-template'],
 	...baseConfig,
 	{
+		// Nested e2e project: linted by its own config (e2e/eslint.config.mjs).
+		// Nx runs ESLint from the workspace root, so match from any depth.
+		ignores: ['**/e2e/**'],
+	},
+	{
 		files: ['**/*.ts'],
 		rules: {
 			// Templates and styles live in their own files (templateUrl/styleUrl).

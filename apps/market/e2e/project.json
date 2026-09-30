@@ -1,0 +1,21 @@
+{
+	"name": "market-e2e",
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "application",
+	"sourceRoot": "apps/market/e2e/src",
+	"tags": ["type:e2e", "scope:market"],
+	"implicitDependencies": ["market"],
+	"targets": {
+		"e2e": {
+			"dependsOn": [
+				{
+					"projects": ["market"],
+					"target": "build"
+				}
+			]
+		},
+		"typecheck": {
+			"command": "tsc -p apps/market/e2e/tsconfig.json --noEmit"
+		}
+	}
+}
