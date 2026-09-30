@@ -22,6 +22,7 @@ frontend platform that several teams could work on.
 - [Quality](#quality): [testing](#testing), [accessibility](#accessibility),
   [performance](#performance), [TypeScript](#typescript),
   [CI and versioning](#ci-and-versioning)
+- [Deployment](#deployment)
 - [Repository layout](#repository-layout)
 
 <!-- docs:exclude-end -->
@@ -128,6 +129,7 @@ npm start -- market    # http://localhost:4201
 | `npm run typecheck`   | `tsc --noEmit` per project, including test files                                                |
 | `npm run i18n:check`  | Key parity across languages and ICU syntax, per app                                             |
 | `npm run serve:dist`  | Builds and serves the production output the way the static host will                            |
+| `npm run deploy`      | Deploys the three apps to Firebase Hosting (see [deployment](docs/deployment.md))               |
 | `npm run release:dry` | Preview the next versions and changelogs of the shared libraries                                |
 
 <!-- docs:exclude-end -->
@@ -238,6 +240,16 @@ alternatives that lost. **The full list is in [docs/adr](docs/adr/README.md).**
   written to the source `package.json` that Native Federation enforces at
   runtime.
 
+## Deployment
+
+Each app is its own **Firebase Hosting** site (free Spark plan) and deploys on
+its own. Every push to `main` runs CI and, **only if it passes**, deploys the
+affected apps (remotes first, then the shell), writes the production
+federation manifest and verifies the live sites (CORS, caching, manifest).
+Setup, rollback and manual full deploys are in
+**[docs/deployment.md](docs/deployment.md)**; the reasoning is in
+[ADR 0009](docs/adr/0009-deployment.md).
+
 ## Repository layout
 
 ```
@@ -256,6 +268,9 @@ libs/shared/
   util-i18n/              translation providers, language preference
   data-access-wishlist/   cross-app contract
   util-e2e/               shared Playwright fixtures
-tools/scripts/            serve-all (dev), serve-dist (prod-like), check-i18n, generate-env
+tools/scripts/            serve-all, serve-dist, check-i18n, generate-env,
+                          write-manifest, verify-deploy
 docs/adr/                 architecture decision records
+docs/deployment.md        Firebase Hosting setup and continuous deployment
+firebase.json             Hosting sites and headers (.firebaserc: site IDs)
 ```

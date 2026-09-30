@@ -185,6 +185,18 @@
 		"generate-env": {
 			"command": "node tools/scripts/generate-env.mjs",
 			"cache": false
+		},
+		"deploy": {
+			"dependsOn": ["build"],
+			"cache": false,
+			"options": {
+				"commands": [
+					"node tools/scripts/write-manifest.mjs",
+					"npx -y firebase-tools@15.32.0 deploy --only hosting:shell --non-interactive"
+				],
+				"parallel": false
+			},
+			"executor": "nx:run-commands"
 		}
 	}
 }

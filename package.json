@@ -18,7 +18,9 @@
 		"release:dry": "nx release --dry-run --skip-publish",
 		"graph": "nx graph",
 		"i18n:check": "node tools/scripts/check-i18n.mjs",
-		"postinstall": "node tools/scripts/generate-env.mjs"
+		"postinstall": "node tools/scripts/generate-env.mjs",
+		"deploy": "nx run-many -t deploy -p market wishlist && nx deploy shell",
+		"deploy:verify": "node tools/scripts/verify-deploy.mjs"
 	},
 	"devDependencies": {
 		"@analogjs/vite-plugin-angular": "~2.7.5",

@@ -14,6 +14,7 @@ challenge it with the same information the author had.
 | [0006](0006-client-side-rendering.md)         | Client-side rendering only (no SSR)                              | Accepted |
 | [0007](0007-library-boundaries.md)            | Library boundaries, tags and the "second consumer" rule          | Accepted |
 | [0008](0008-testing-strategy.md)              | Testing strategy: fast unit tests, e2e against production builds | Accepted |
+| [0009](0009-deployment.md)                    | One Hosting site per app, affected-only continuous deployment    | Accepted |
 
 New decisions: copy [the template](template.md), take the next number, and link
 it here. Superseded records stay, marked as such, with a link to the new one.

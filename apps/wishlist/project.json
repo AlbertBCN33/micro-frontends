@@ -119,6 +119,14 @@
 		},
 		"typecheck": {
 			"command": "tsc -p apps/wishlist/tsconfig.spec.json --noEmit"
+		},
+		"deploy": {
+			"dependsOn": ["build"],
+			"cache": false,
+			"options": {
+				"command": "npx -y firebase-tools@15.32.0 deploy --only hosting:wishlist --non-interactive"
+			},
+			"executor": "nx:run-commands"
 		}
 	}
 }

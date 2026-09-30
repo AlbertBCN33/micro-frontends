@@ -1,0 +1,92 @@
+{
+	"hosting": [
+		{
+			"target": "shell",
+			"public": "dist/apps/shell/browser",
+			"ignore": ["**/.*"],
+			"rewrites": [{ "source": "**", "destination": "/index.html" }],
+			"headers": [
+				{
+					"source": "**/*.@(js|css)",
+					"headers": [
+						{
+							"key": "Cache-Control",
+							"value": "public, max-age=31536000, immutable"
+						}
+					]
+				},
+				{
+					"source": "**/!(*.@(js|css))",
+					"headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+				},
+				{
+					"source": "**",
+					"headers": [
+						{ "key": "X-Content-Type-Options", "value": "nosniff" },
+						{
+							"key": "Referrer-Policy",
+							"value": "strict-origin-when-cross-origin"
+						},
+						{ "key": "X-Frame-Options", "value": "DENY" }
+					]
+				}
+			]
+		},
+		{
+			"target": "market",
+			"public": "dist/apps/market/browser",
+			"ignore": ["**/.*"],
+			"rewrites": [{ "source": "**", "destination": "/index.html" }],
+			"headers": [
+				{
+					"source": "**/*.@(js|css)",
+					"headers": [
+						{
+							"key": "Cache-Control",
+							"value": "public, max-age=31536000, immutable"
+						}
+					]
+				},
+				{
+					"source": "**/!(*.@(js|css))",
+					"headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+				},
+				{
+					"source": "**",
+					"headers": [
+						{ "key": "Access-Control-Allow-Origin", "value": "*" },
+						{ "key": "X-Content-Type-Options", "value": "nosniff" }
+					]
+				}
+			]
+		},
+		{
+			"target": "wishlist",
+			"public": "dist/apps/wishlist/browser",
+			"ignore": ["**/.*"],
+			"rewrites": [{ "source": "**", "destination": "/index.html" }],
+			"headers": [
+				{
+					"source": "**/*.@(js|css)",
+					"headers": [
+						{
+							"key": "Cache-Control",
+							"value": "public, max-age=31536000, immutable"
+						}
+					]
+				},
+				{
+					"source": "**/!(*.@(js|css))",
+					"headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+				},
+				{
+					"source": "**",
+					"headers": [
+						{ "key": "Access-Control-Allow-Origin", "value": "*" },
+						{ "key": "X-Content-Type-Options", "value": "nosniff" }
+					]
+				}
+			]
+		}
+	]
+}

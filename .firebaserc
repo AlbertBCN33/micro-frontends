@@ -1,0 +1,14 @@
+{
+	"projects": {
+		"default": "micro-frontends-3e1a2"
+	},
+	"targets": {
+		"micro-frontends-3e1a2": {
+			"hosting": {
+				"shell": ["micro-frontends-3e1a2"],
+				"market": ["micro-frontends-3e1a2-market"],
+				"wishlist": ["micro-frontends-3e1a2-wishlist"]
+			}
+		}
+	}
+}

@@ -4,14 +4,22 @@ on:
     push:
         branches: [main]
     pull_request:
+    # Manual run on main; "deploy-all" redeploys every app (e.g. the first deploy).
+    workflow_dispatch:
+        inputs:
+            deploy-all:
+                description: Deploy every app, not only the affected ones
+                type: boolean
+                default: false
 
 permissions:
     contents: read
 
-# A newer push to the same branch or PR cancels the run in progress.
+# A newer push to a PR cancels its run in progress. On main, runs queue instead:
+# cancelling there could stop a deployment halfway.
 concurrency:
     group: ci-${{ github.ref }}
-    cancel-in-progress: true
+    cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
     main:
@@ -69,3 +77,74 @@ jobs:
                   name: playwright-report
                   path: dist/.playwright
                   retention-days: 7
+
+    # Continuous deployment: runs only after the CI job passes, for main.
+    deploy:
+        needs: main
+        # Opt-in: skipped until the repository variable DEPLOY_ENABLED is "true"
+        # (set it once the Firebase sites and the secret exist, docs/deployment.md).
+        if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        runs-on: ubuntu-latest
+        timeout-minutes: 15
+        environment:
+            name: production
+            url: https://micro-frontends-3e1a2.web.app
+        # Never cancel a deployment halfway, and never run two at once.
+        concurrency:
+            group: deploy-production
+            cancel-in-progress: false
+        steps:
+            - uses: actions/checkout@v5
+              with:
+                  fetch-depth: 0
+
+            - uses: actions/setup-node@v5
+              with:
+                  node-version-file: .nvmrc
+                  cache: npm
+
+            - run: npm ci
+
+            # Base = the last commit whose whole workflow (CI + deploy) succeeded,
+            # so a failed deploy is retried by the next run.
+            - uses: nrwl/nx-set-shas@v4
+
+            # The CI job just built these commits: restore its cache to skip rebuilds.
+            - uses: actions/cache/restore@v4
+              with:
+                  path: .nx/cache
+                  key: nx-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
+                  restore-keys: |
+                      nx-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+
+            # Service account with the Firebase Hosting Admin role (see docs/deployment.md).
+            - uses: google-github-actions/auth@v2
+              with:
+                  credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MICRO_FRONTENDS_3E1A2 }}
+
+            # Each app is its own Hosting site and deploys independently. Remotes go
+            # first, so the live shell never points at a remote version that isn't
+            # deployed yet.
+            - name: Deploy affected apps
+              env:
+                  DEPLOY_ALL: ${{ inputs.deploy-all }}
+              run: |
+                  if [ "$DEPLOY_ALL" = "true" ]; then
+                    apps="market wishlist shell"
+                  else
+                    apps=$(npx nx show projects --affected --with-target deploy | tr '\n' ' ')
+                  fi
+                  echo "Apps to deploy: ${apps:-none}"
+
+                  remotes=$(echo "$apps" | tr ' ' '\n' | grep -v '^shell$' | grep . | paste -sd, - || true)
+                  if [ -n "$remotes" ]; then
+                    npx nx run-many -t deploy -p "$remotes" --parallel=1
+                  fi
+                  if echo " $apps " | grep -q ' shell '; then
+                    npx nx deploy shell
+                  fi
+
+            # The Hosting emulator ignores custom headers, so CORS, caching and the
+            # manifest are verified against the live sites.
+            - name: Verify the live deployment
+              run: node tools/scripts/verify-deploy.mjs

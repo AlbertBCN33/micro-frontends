@@ -55,3 +55,7 @@ vitest.config.*.timestamp*
 
 # Generated from .env by tools/scripts/generate-env.mjs
 *.generated.ts
+
+# Firebase CLI / emulator logs
+firebase-debug.log
+*-debug.log

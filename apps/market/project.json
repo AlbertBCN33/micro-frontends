@@ -119,6 +119,14 @@
 		},
 		"typecheck": {
 			"command": "tsc -p apps/market/tsconfig.spec.json --noEmit"
+		},
+		"deploy": {
+			"dependsOn": ["build"],
+			"cache": false,
+			"options": {
+				"command": "npx -y firebase-tools@15.32.0 deploy --only hosting:market --non-interactive"
+			},
+			"executor": "nx:run-commands"
 		}
 	}
 }
