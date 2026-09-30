@@ -11,16 +11,7 @@ export type StateMessageKind = 'empty' | 'error' | 'loading';
  */
 @Component({
 	selector: 'ui-state-message',
-	template: `
-		<div
-			class="box"
-			[class.box--error]="kind() === 'error'"
-			[attr.role]="role()"
-		>
-			<p class="message">{{ message() }}</p>
-			<ng-content />
-		</div>
-	`,
+	templateUrl: './state-message.html',
 	styleUrl: './state-message.sass',
 })
 export class StateMessage {

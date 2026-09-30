@@ -8,10 +8,7 @@ import { RouterOutlet } from '@angular/router';
 @Component({
 	selector: 'market-root',
 	imports: [RouterOutlet],
-	template: `
-		<p class="banner">Market · standalone mode</p>
-		<main id="main-content" class="content"><router-outlet /></main>
-	`,
+	templateUrl: './app.html',
 	styleUrl: './app.sass',
 })
 export class App {}

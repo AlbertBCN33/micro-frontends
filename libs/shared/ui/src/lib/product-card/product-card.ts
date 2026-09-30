@@ -10,29 +10,7 @@ import { RouterLink } from '@angular/router';
 @Component({
 	selector: 'ui-product-card',
 	imports: [RouterLink],
-	template: `
-		<article class="card">
-			<img
-				class="image"
-				[src]="imageUrl()"
-				alt=""
-				width="320"
-				height="200"
-				loading="lazy"
-				decoding="async"
-			/>
-			<div class="body">
-				<h2 class="name">
-					<a [routerLink]="link()">{{ name() }}</a>
-				</h2>
-				@if (meta(); as meta) {
-					<p class="meta">{{ meta }}</p>
-				}
-				<p class="price">{{ price() }}</p>
-				<div class="actions"><ng-content /></div>
-			</div>
-		</article>
-	`,
+	templateUrl: './product-card.html',
 	styleUrl: './product-card.sass',
 })
 export class ProductCard {

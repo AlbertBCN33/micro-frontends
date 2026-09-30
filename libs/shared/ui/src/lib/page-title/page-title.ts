@@ -6,12 +6,7 @@ import { Component, input } from '@angular/core';
  */
 @Component({
 	selector: 'ui-page-title',
-	template: `
-		<h1 class="title">{{ heading() }}</h1>
-		@if (subtitle(); as subtitle) {
-			<p class="subtitle">{{ subtitle }}</p>
-		}
-	`,
+	templateUrl: './page-title.html',
 	styleUrl: './page-title.sass',
 })
 export class PageTitle {

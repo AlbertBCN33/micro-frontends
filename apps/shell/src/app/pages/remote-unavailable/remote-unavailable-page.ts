@@ -13,20 +13,8 @@ import { map } from 'rxjs';
 @Component({
 	selector: 'shell-remote-unavailable-page',
 	imports: [RouterLink, PageTitle, StateMessage, TranslatePipe],
-	template: `
-		<ui-page-title [heading]="'REMOTE_UNAVAILABLE.TITLE' | translate" />
-		<ui-state-message
-			kind="error"
-			[message]="
-				'REMOTE_UNAVAILABLE.BODY' | translate: { remote: remote() }
-			"
-		>
-			<button type="button" class="mfe-button" (click)="retry()">
-				{{ 'REMOTE_UNAVAILABLE.RETRY' | translate }}
-			</button>
-			<a routerLink="/">{{ 'NOT_FOUND.CTA' | translate }}</a>
-		</ui-state-message>
-	`,
+	templateUrl: './remote-unavailable-page.html',
+	styleUrl: './remote-unavailable-page.sass',
 })
 export class RemoteUnavailablePage {
 	readonly #document = inject(DOCUMENT);

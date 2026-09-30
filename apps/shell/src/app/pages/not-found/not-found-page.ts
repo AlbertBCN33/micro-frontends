@@ -6,13 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 @Component({
 	selector: 'shell-not-found-page',
 	imports: [RouterLink, PageTitle, StateMessage, TranslatePipe],
-	template: `
-		<ui-page-title [heading]="'NOT_FOUND.TITLE' | translate" />
-		<ui-state-message [message]="'NOT_FOUND.BODY' | translate">
-			<a class="mfe-button" routerLink="/">{{
-				'NOT_FOUND.CTA' | translate
-			}}</a>
-		</ui-state-message>
-	`,
+	templateUrl: './not-found-page.html',
+	styleUrl: './not-found-page.sass',
 })
 export class NotFoundPage {}
