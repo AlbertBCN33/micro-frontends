@@ -72,6 +72,8 @@
 		"@angular/router": "~18.2.0",
 		"@angular/ssr": "~18.2.0",
 		"@module-federation/node": "~2.5.0",
+		"@ngx-translate/core": "^16.0.3",
+		"@ngx-translate/http-loader": "^16.0.0",
 		"@nx/angular": "^20.1.2",
 		"cors": "~2.8.5",
 		"express": "^4.21.1",

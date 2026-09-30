@@ -15,7 +15,9 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
-			"@micro-frontends/shared": ["libs/shared/src/index.ts"],
+			"@micro-frontends/ui-components": [
+				"libs/ui-components/src/index.ts"
+			],
 			"remote1/Routes": [
 				"apps/remote1/src/app/remote-entry/entry.routes.ts"
 			],
