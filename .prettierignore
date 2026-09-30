@@ -1,6 +1,7 @@
-# Add files here to ignore them from prettier formatting
+# Build output, caches and generated files
 /dist
 /coverage
 /.nx/cache
 /.nx/workspace-data
 .angular
+package-lock.json

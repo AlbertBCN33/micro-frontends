@@ -1,24 +1,24 @@
 {
-	"name": "shell",
+	"name": "market",
 	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"projectType": "application",
-	"prefix": "shell",
-	"sourceRoot": "apps/shell/src",
-	"tags": ["type:app", "scope:shell"],
+	"prefix": "market",
+	"sourceRoot": "apps/market/src",
+	"tags": ["type:app", "scope:market"],
 	"targets": {
 		"build": {
 			"executor": "@angular-architects/native-federation:build",
 			"defaultConfiguration": "production",
 			"options": {
 				"cacheExternalArtifacts": true,
-				"tsConfig": "apps/shell/tsconfig.federation.json"
+				"tsConfig": "apps/market/tsconfig.federation.json"
 			},
 			"configurations": {
 				"production": {
-					"target": "shell:esbuild:production"
+					"target": "market:esbuild:production"
 				},
 				"development": {
-					"target": "shell:esbuild:development",
+					"target": "market:esbuild:development",
 					"dev": true
 				}
 			}
@@ -26,8 +26,8 @@
 		"serve": {
 			"executor": "@angular-architects/native-federation:build",
 			"options": {
-				"target": "shell:serve-original:development",
-				"tsConfig": "apps/shell/tsconfig.federation.json",
+				"target": "market:serve-original:development",
+				"tsConfig": "apps/market/tsconfig.federation.json",
 				"rebuildDelay": 500,
 				"cacheExternalArtifacts": true,
 				"dev": true,
@@ -41,19 +41,19 @@
 		"test": {
 			"outputs": [
 				"{projectRoot}/{options.coverage.reportsDirectory}",
-				"{workspaceRoot}/coverage/apps/shell"
+				"{workspaceRoot}/coverage/apps/market"
 			],
 			"options": {
-				"coverage.reportsDirectory": "../../coverage/apps/shell"
+				"coverage.reportsDirectory": "../../coverage/apps/market"
 			}
 		},
 		"serve-static": {
 			"continuous": true,
 			"executor": "@nx/web:file-server",
 			"options": {
-				"buildTarget": "shell:build",
-				"port": 4200,
-				"staticFilePath": "dist/apps/shell/browser",
+				"buildTarget": "market:build",
+				"port": 4201,
+				"staticFilePath": "dist/apps/market/browser",
 				"spa": true
 			}
 		},
@@ -62,19 +62,19 @@
 			"outputs": ["{options.outputPath}"],
 			"defaultConfiguration": "production",
 			"options": {
-				"outputPath": "dist/apps/shell",
-				"browser": "apps/shell/src/main.ts",
-				"tsConfig": "apps/shell/tsconfig.app.json",
+				"outputPath": "dist/apps/market",
+				"browser": "apps/market/src/main.ts",
+				"tsConfig": "apps/market/tsconfig.app.json",
 				"inlineStyleLanguage": "sass",
 				"assets": [
 					{
 						"glob": "**/*",
-						"input": "apps/shell/public"
+						"input": "apps/market/public"
 					}
 				],
 				"styles": [
 					"libs/shared/ui/src/styles/theme.css",
-					"apps/shell/src/styles.sass"
+					"apps/market/src/styles.sass"
 				],
 				"polyfills": ["es-module-shims"]
 			},
@@ -106,19 +106,19 @@
 			"executor": "@angular/build:dev-server",
 			"defaultConfiguration": "development",
 			"options": {
-				"port": 4200
+				"port": 4201
 			},
 			"configurations": {
 				"production": {
-					"buildTarget": "shell:esbuild:production"
+					"buildTarget": "market:esbuild:production"
 				},
 				"development": {
-					"buildTarget": "shell:esbuild:development"
+					"buildTarget": "market:esbuild:development"
 				}
 			}
 		},
 		"typecheck": {
-			"command": "tsc -p apps/shell/tsconfig.spec.json --noEmit"
+			"command": "tsc -p apps/market/tsconfig.spec.json --noEmit"
 		}
 	}
 }

@@ -1,0 +1,45 @@
+{
+	"name": "shared-ui",
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/shared/ui/src",
+	"prefix": "ui",
+	"projectType": "library",
+	"tags": ["type:ui", "scope:shared"],
+	"targets": {
+		"build": {
+			"executor": "@nx/angular:package",
+			"outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+			"defaultConfiguration": "production",
+			"options": {
+				"project": "libs/shared/ui/ng-package.json",
+				"tsConfig": "libs/shared/ui/tsconfig.lib.json"
+			},
+			"configurations": {
+				"production": {
+					"tsConfig": "libs/shared/ui/tsconfig.lib.prod.json"
+				},
+				"development": {}
+			}
+		},
+		"nx-release-publish": {
+			"options": {
+				"packageRoot": "dist/{projectRoot}"
+			}
+		},
+		"test": {
+			"outputs": [
+				"{projectRoot}/{options.coverage.reportsDirectory}",
+				"{workspaceRoot}/coverage/libs/shared/ui"
+			],
+			"options": {
+				"coverage.reportsDirectory": "../../../coverage/libs/shared/ui"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint"
+		},
+		"typecheck": {
+			"command": "tsc -p libs/shared/ui/tsconfig.spec.json --noEmit"
+		}
+	}
+}

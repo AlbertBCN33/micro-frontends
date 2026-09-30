@@ -4,25 +4,20 @@
 		"rootDir": ".",
 		"sourceMap": true,
 		"declaration": false,
-		"moduleResolution": "node",
-		"emitDecoratorMetadata": true,
+		"moduleResolution": "bundler",
+		"emitDecoratorMetadata": false,
 		"experimentalDecorators": true,
 		"importHelpers": true,
-		"target": "ES2022",
+		"target": "es2022",
 		"module": "esnext",
-		"lib": ["es2020", "dom"],
+		"lib": ["es2022", "dom", "dom.iterable"],
 		"skipLibCheck": true,
 		"skipDefaultLibCheck": true,
-		"baseUrl": ".",
 		"paths": {
-			"@micro-frontends/ui-components": [
-				"libs/ui-components/src/index.ts"
-			],
-			"remote1/Routes": [
-				"apps/remote1/src/app/remote-entry/entry.routes.ts"
-			],
-			"remote2/Routes": [
-				"apps/remote2/src/app/remote-entry/entry.routes.ts"
+			"@mfe/shared-ui": ["./libs/shared/ui/src/index.ts"],
+			"@mfe/shared-util-i18n": ["./libs/shared/util-i18n/src/index.ts"],
+			"@mfe/shared-data-access-wishlist": [
+				"./libs/shared/data-access-wishlist/src/index.ts"
 			]
 		}
 	},
