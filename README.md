@@ -23,6 +23,7 @@ frontend platform that several teams could work on.
   [performance](#performance), [TypeScript](#typescript),
   [CI and versioning](#ci-and-versioning)
 - [Deployment](#deployment)
+- [How this was built](#how-this-was-built)
 - [Repository layout](#repository-layout)
 
 <!-- docs:exclude-end -->
@@ -249,6 +250,46 @@ federation manifest and verifies the live sites (CORS, caching, manifest).
 Setup, rollback and manual full deploys are in
 **[docs/deployment.md](docs/deployment.md)**; the reasoning is in
 [ADR 0009](docs/adr/0009-deployment.md).
+
+## How this was built
+
+This project was built with **Claude Code** (Anthropic's AI coding assistant)
+as the implementer, under my direction. I'm stating it plainly because how I
+work with AI tooling is part of what this repository shows.
+
+**What I owned**
+
+- **The starting point:** the original Nx workspace, the shell's header,
+  layout and documentation section, and ngx-translate for i18n.
+- **The requirements:** an Nx monorepo with shared packages, versioning and CI
+  caching; the latest Angular; each app loading its own translation files;
+  remotes downloaded only when their URL is visited; Firebase Hosting as the
+  target.
+- **The decisions where there was a real choice:** rebuilding on Nx 23 instead
+  of migrating step by step, dropping SSR, the product-catalog domain, no
+  custom backend, and naming the remotes after their domains.
+- **Review, and the conventions that came out of it:** e2e tests live with the
+  app that owns the journey; every page and layout component has a spec;
+  templates and styles live in their own files; translations sit in
+  `src/assets/i18n`; the README doubles as an in-app documentation tab; and
+  secrets stay out of the repository (the Firebase config moved to a
+  git-ignored `.env`, and the branch history was cleaned before publishing).
+
+**What Claude Code did**
+
+- Researched the current toolchain and brought options with their tradeoffs
+  for me to decide. For example, it found that Nx 23 deprecates Angular Module
+  Federation and proposed Native Federation.
+- Wrote most of the code, the tests and the documentation, including the
+  [Architecture Decision Records](docs/adr/README.md).
+
+**How it was verified**
+
+- Every change passed the same gates CI runs: formatting, translation checks,
+  lint with module boundaries, type checks, unit and component tests,
+  production builds, and end-to-end tests with axe accessibility audits on
+  desktop and mobile.
+- Commits made with Claude Code carry a `Co-Authored-By: Claude` trailer.
 
 ## Repository layout
 
