@@ -14,7 +14,12 @@ export default [
 				'error',
 				{
 					enforceBuildableLibDependency: true,
-					allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
+					allow: [
+						'^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$',
+						// The shell's documentation page renders the repository README
+						// (bundled as text). Only the root README.md is allowed.
+						'^(\\.\\./)+README\\.md$',
+					],
 					// The architecture, enforced. Remotes never import each other
 					// (they meet only at runtime through the shell) and depend
 					// on shared libraries through narrow, layered types.

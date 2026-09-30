@@ -88,6 +88,10 @@
 			"LEGEND_LAZY": "Remotes are fetched the first time their route is visited, never at startup.",
 			"LEGEND_SHARED": "Shared libraries are loaded once and shared by the shell and every remote.",
 			"LEGEND_MANIFEST": "federation.manifest.json maps remote names to URLs for each environment."
+		},
+		"README": {
+			"TITLE": "README",
+			"ENGLISH_ONLY": "This document is available in English only."
 		}
 	}
 }

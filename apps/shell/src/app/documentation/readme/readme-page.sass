@@ -1,0 +1,58 @@
+// Unencapsulated (see component): every rule is scoped under .readme.
+shell-readme-page
+	display: block
+	max-width: 80ch
+
+.readme-note
+	margin: 0 0 var(--mfe-space-3)
+	padding: var(--mfe-space-2) var(--mfe-space-3)
+	border-left: 4px solid var(--mfe-color-primary)
+	background: var(--mfe-color-surface)
+
+.readme
+	h2
+		margin: 0 0 var(--mfe-space-3)
+		font-size: 1.75rem
+		line-height: 1.2
+	h3
+		margin: var(--mfe-space-5) 0 var(--mfe-space-2)
+		font-size: 1.375rem
+	h4
+		margin: var(--mfe-space-4) 0 var(--mfe-space-2)
+		font-size: 1.125rem
+	p, ul, ol
+		margin: 0 0 var(--mfe-space-3)
+	li + li
+		margin-top: var(--mfe-space-1)
+	blockquote
+		margin: 0 0 var(--mfe-space-3)
+		padding: var(--mfe-space-2) var(--mfe-space-3)
+		border-left: 4px solid var(--mfe-color-primary)
+		background: var(--mfe-color-surface)
+		p
+			margin: 0
+	code
+		padding: 0.1em 0.35em
+		border-radius: 0.25rem
+		background: var(--mfe-color-surface)
+		font-size: 0.9em
+	.scroll-region
+		overflow-x: auto
+		margin: 0 0 var(--mfe-space-3)
+	pre
+		margin: 0
+		padding: var(--mfe-space-3)
+		border-radius: var(--mfe-radius)
+		background: var(--mfe-color-surface)
+		code
+			padding: 0
+			background: none
+	table
+		border-collapse: collapse
+	th, td
+		padding: var(--mfe-space-2)
+		border: 1px solid var(--mfe-color-border)
+		text-align: left
+		vertical-align: top
+	th
+		background: var(--mfe-color-surface)

@@ -88,6 +88,10 @@
 			"LEGEND_LAZY": "Los remotos se descargan la primera vez que se visita su ruta, nunca al arrancar.",
 			"LEGEND_SHARED": "Las librerías compartidas se cargan una vez y las usan el shell y todos los remotos.",
 			"LEGEND_MANIFEST": "federation.manifest.json asigna a cada remoto su URL en cada entorno."
+		},
+		"README": {
+			"TITLE": "README",
+			"ENGLISH_ONLY": "Este documento solo está disponible en inglés."
 		}
 	}
 }

@@ -1,0 +1,5 @@
+@if (isTranslatedUi()) {
+<p class="readme-note">{{ 'DOCS.README.ENGLISH_ONLY' | translate }}</p>
+}
+<!-- lang="en": screen readers must pronounce the README as English, whatever the UI language. -->
+<article class="readme" lang="en" [innerHTML]="html"></article>

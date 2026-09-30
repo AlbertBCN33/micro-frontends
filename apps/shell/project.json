@@ -46,7 +46,8 @@
 				},
 				{
 					"env": "FIREBASE_MEASUREMENT_ID"
-				}
+				},
+				"{workspaceRoot}/README.md"
 			],
 			"cache": true,
 			"outputs": ["{workspaceRoot}/dist/apps/shell"]
@@ -75,7 +76,8 @@
 			"options": {
 				"coverage.reportsDirectory": "../../coverage/apps/shell"
 			},
-			"dependsOn": ["generate-env"]
+			"dependsOn": ["generate-env"],
+			"inputs": ["default", "^production", "{workspaceRoot}/README.md"]
 		},
 		"serve-static": {
 			"continuous": true,
@@ -106,7 +108,10 @@
 					"libs/shared/ui/src/styles/theme.css",
 					"apps/shell/src/styles.sass"
 				],
-				"polyfills": ["es-module-shims"]
+				"polyfills": ["es-module-shims"],
+				"loader": {
+					".md": "text"
+				}
 			},
 			"configurations": {
 				"production": {
@@ -173,7 +178,8 @@
 				},
 				{
 					"env": "FIREBASE_MEASUREMENT_ID"
-				}
+				},
+				"{workspaceRoot}/README.md"
 			]
 		},
 		"generate-env": {

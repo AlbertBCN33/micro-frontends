@@ -7,6 +7,7 @@ const pages = [
 	{ path: '/wishlist', heading: 'Wish list' },
 	{ path: '/documentation/system-design', heading: 'Documentation' },
 	{ path: '/documentation/architecture-diagram', heading: 'Documentation' },
+	{ path: '/documentation/readme', heading: 'Documentation' },
 	{ path: '/nope', heading: 'Page not found' },
 ];
 

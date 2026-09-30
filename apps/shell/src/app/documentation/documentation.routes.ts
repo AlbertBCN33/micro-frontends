@@ -20,6 +20,12 @@ export const routes: Route[] = [
 				component: ArchitectureDiagram,
 				title: translatedTitle('DOCS.DIAGRAM.TITLE'),
 			},
+			{
+				path: 'readme',
+				loadComponent: () =>
+					import('./readme/readme-page').then((m) => m.ReadmePage),
+				title: translatedTitle('DOCS.README.TITLE'),
+			},
 		],
 	},
 ];
