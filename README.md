@@ -70,6 +70,7 @@ Requires **Node 24 LTS** (see `.nvmrc`; Angular 22 needs ≥ 22.22 or ≥ 24.15)
 
 ```sh
 npm ci
+cp .env.example .env   # optional: Firebase web config (git-ignored)
 npm start          # market → wishlist → shell, then open http://localhost:4200
 ```
 

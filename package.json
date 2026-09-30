@@ -17,7 +17,8 @@
 		"format": "nx format:write",
 		"release:dry": "nx release --dry-run --skip-publish",
 		"graph": "nx graph",
-		"i18n:check": "node tools/scripts/check-i18n.mjs"
+		"i18n:check": "node tools/scripts/check-i18n.mjs",
+		"postinstall": "node tools/scripts/generate-env.mjs"
 	},
 	"devDependencies": {
 		"@analogjs/vite-plugin-angular": "~2.7.5",

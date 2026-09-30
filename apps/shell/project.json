@@ -21,7 +21,35 @@
 					"target": "shell:esbuild:development",
 					"dev": true
 				}
-			}
+			},
+			"dependsOn": ["generate-env", "^build"],
+			"inputs": [
+				"production",
+				"^production",
+				{
+					"env": "FIREBASE_API_KEY"
+				},
+				{
+					"env": "FIREBASE_AUTH_DOMAIN"
+				},
+				{
+					"env": "FIREBASE_PROJECT_ID"
+				},
+				{
+					"env": "FIREBASE_STORAGE_BUCKET"
+				},
+				{
+					"env": "FIREBASE_MESSAGING_SENDER_ID"
+				},
+				{
+					"env": "FIREBASE_APP_ID"
+				},
+				{
+					"env": "FIREBASE_MEASUREMENT_ID"
+				}
+			],
+			"cache": true,
+			"outputs": ["{workspaceRoot}/dist/apps/shell"]
 		},
 		"serve": {
 			"executor": "@angular-architects/native-federation:build",
@@ -33,7 +61,8 @@
 				"dev": true,
 				"devServer": true,
 				"port": 0
-			}
+			},
+			"dependsOn": ["generate-env"]
 		},
 		"lint": {
 			"executor": "@nx/eslint:lint"
@@ -45,7 +74,8 @@
 			],
 			"options": {
 				"coverage.reportsDirectory": "../../coverage/apps/shell"
-			}
+			},
+			"dependsOn": ["generate-env"]
 		},
 		"serve-static": {
 			"continuous": true,
@@ -118,7 +148,37 @@
 			}
 		},
 		"typecheck": {
-			"command": "tsc -p apps/shell/tsconfig.spec.json --noEmit"
+			"command": "tsc -p apps/shell/tsconfig.spec.json --noEmit",
+			"dependsOn": ["generate-env"],
+			"inputs": [
+				"default",
+				"^production",
+				{
+					"env": "FIREBASE_API_KEY"
+				},
+				{
+					"env": "FIREBASE_AUTH_DOMAIN"
+				},
+				{
+					"env": "FIREBASE_PROJECT_ID"
+				},
+				{
+					"env": "FIREBASE_STORAGE_BUCKET"
+				},
+				{
+					"env": "FIREBASE_MESSAGING_SENDER_ID"
+				},
+				{
+					"env": "FIREBASE_APP_ID"
+				},
+				{
+					"env": "FIREBASE_MEASUREMENT_ID"
+				}
+			]
+		},
+		"generate-env": {
+			"command": "node tools/scripts/generate-env.mjs",
+			"cache": false
 		}
 	}
 }

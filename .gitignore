@@ -47,3 +47,11 @@ Thumbs.db
 .claude/worktrees
 .claude/settings.local.json
 vitest.config.*.timestamp*
+
+# Local environment: real values stay on this machine. Only the example is committed.
+.env
+.env.*
+!.env.example
+
+# Generated from .env by tools/scripts/generate-env.mjs
+*.generated.ts
