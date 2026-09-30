@@ -119,4 +119,11 @@ export default [
 			],
 		},
 	},
+	{
+		// In tests a null simply fails the test; guarding each query adds noise.
+		files: ['**/*.spec.ts'],
+		rules: {
+			'@typescript-eslint/no-non-null-assertion': 'off',
+		},
+	},
 ];
